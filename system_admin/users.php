@@ -48,7 +48,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="">
+                        <a href="account.php">
                             <i class='bx bxs-cog'></i>
                             <p>Account Settings</p>
                         </a>
@@ -114,42 +114,31 @@
                         <i class='bx bxs-user-check' ></i> - Enable Account, 
                         <i class='bx bxs-trash' ></i> - Delete Account
                     </p>
-                    <h5 class="card-category">Department Faculty Members</h5>
-                    <h4 class="card-title">Faculty Members</h4>
+                    <h5 class="card-category">List of Users Accounts</h5>
+                    <h4 class="card-title">Users Account</h4>
                     </div>
                     <div class="card-body">
                     <div class="table-responsive">
                         <table class="table table-hover dataTable js-exportable" >
-                            <thead class=" text-primary">
+                            <thead class="text-danger">
                             <th>Name</th>
-                            <th>I.D Number</th>
                             <th>Email</th>
-                            <th>Department</th>
-                            <th>Position</th>
+                            <th>Account Type</th>
                             <th>Status</th>
                             <th>Action</th>
                             </thead>
                             <tbody>
-                         
+
                                 <tr>
-                                <td>{{f.first_name}} {{f.last_name}}</td>
-                                <td>{{f.username}}</td>
-                                <td>{{f.email}}</td>
-                                <td>{{f.department}}</td>
-                                <td>{{f.position}}</td>
-                                <td>
-                                    {% if f.is_active == 0 %}
-                                    Disabled
-                                    {% elif f.is_active == 1 %}
-                                    Active
-                                    {% endif %}
-                                </td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                       
                                 <td>
                                     <button class="btn btn-primary" data-toggle="modal" data-target="#edit{{f.id}}"><i class='bx bxs-edit' ></i></button>
                                     <button class="btn btn-warning" data-toggle="modal" data-target="#disable{{f.id}}"><i class='bx bxs-user-x' ></i></button>
                                     <button class="btn btn-success" data-toggle="modal" data-target="#enable{{f.id}}"><i class='bx bxs-user-check' ></i></button>
-
-                                    {% comment %} <button class="btn btn-danger"  data-toggle="modal" data-target="#delete{{f.id}}"><i class='bx bxs-trash' ></i></button> {% endcomment %}
                                     <button class="btn btn-danger"  data-toggle="modal" data-target="#delete{{f.id}}"><i class='bx bxs-trash' ></i></button>
                                 </td>
                                 </tr>

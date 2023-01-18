@@ -1246,7 +1246,7 @@ a.text-warning:focus, a.text-warning:hover {
 
 .text-danger,
 a.text-danger:focus, a.text-danger:hover {
-  color: #FF3636 !important; }
+  color: rgb(139, 43, 43) !important; }
 
 .text-gray,
 a.text-gray:focus, a.text-gray:hover {

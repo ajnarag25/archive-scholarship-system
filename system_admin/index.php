@@ -48,7 +48,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="">
+                        <a href="account.php">
                             <i class='bx bxs-cog'></i>
                             <p>Account Settings</p>
                         </a>
