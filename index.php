@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Account</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/custom_style.css">
+    <link href="assets/logo.jpg" rel="icon">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+</head>
+<body>
+    <section class="vh-100" style="background-color: rgb(139, 43, 43);" >
+        <div class="container py-5 h-100" data-aos="zoom-in" data-aos-duration="1000" data-aos-once="true">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                    <div class="card shadow-2-strong" style="border-radius: 1rem;">
+                        <div class="card-body p-5 text-center">
+                            <form action="">
+                                <h3 class="mb-2">Login Account</h3>
+                                <p class="mb-5">Please enter your email and password</p>
+                                <div class="form-outline mb-4">
+                                    <input type="email" placeholder="Enter Email" id="typeEmailX-2" class="form-control form-control" required/>
+                                </div>
+                                <div class="form-outline mb-4">
+                                    <input type="password" placeholder="Enter Password" id="typePasswordX-2" class="form-control form-control" required/>
+                                </div>
+                                <div class="form-outline mb-4">
+                                    <select class="form-select" name="" id="" required>
+                                        <option value="" selected disabled>Login as</option>
+                                        <option value="System Administrator">System Administrator</option>
+                                        <option value="UNIFAST Person">UNIFAST Person</option>
+                                        <option value="TES Focal Person">TES Focal Person</option>
+                                        <option value="TES Focal Person">TES Focal Person</option>
+                                    </select>
+                                </div>
+                                <a href="" data-bs-toggle="modal" data-bs-target="#exampleModal" class="forgot">Forgot Password?</a>
+                                <br><br>
+                                <button class="btn btn-success btn-lg btn-block w-100" type="submit">Login</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Forgot Password</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="">
+                    <div class="modal-body">
+                        <input type="email" placeholder="Enter Email" id="typeEmailX-2" class="form-control form-control" required/>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-danger">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+      AOS.init({
+        duration: 3000,
+        once: true,
+      });
+    </script>
+</body>
+</html>
