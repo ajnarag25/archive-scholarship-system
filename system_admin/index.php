@@ -6,7 +6,7 @@
     <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
     <link rel="icon" type="image/png" href="../assets/img/favicon.png">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <title>System Administrator</title>
+    <title>System Administrator - Dashboard</title>
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css" rel="stylesheet">
@@ -37,14 +37,8 @@
                     </li>
                     <li>
                         <a href="users.php">
-                            <i class='bx bxs-user' ></i>
-                            <p>Users</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="">
-                            <i class='bx bxs-user-plus' ></i>
-                            <p>Create Account</p>
+                            <i class='bx bxs-user-detail' ></i>
+                            <p>Create / Manage / View</p>
                         </a>
                     </li>
                     <li>
@@ -91,7 +85,7 @@
                                     </p>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                                    <a class="dropdown-item" href="">Account Settings</a>
+                                    <a class="dropdown-item" href="account.php">Account Settings</a>
                                     <a class="dropdown-item" href="../index.php">Logout</a>
                                 </div>
                             </li>

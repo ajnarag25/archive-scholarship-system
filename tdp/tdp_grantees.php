@@ -6,7 +6,7 @@
     <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
     <link rel="icon" type="image/png" href="../assets/img/favicon.png">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <title>System Administrator - Accounts</title>
+    <title>TDP Focal Person - Grantees</title>
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css" rel="stylesheet">
@@ -25,21 +25,21 @@
                     <img src="../assets/logo.jpg" alt="">
                 </a>
                 <a href="" class="simple-text logo-normal">
-                    System Administrator
+                    TDP Focal Person
                 </a>
             </div>
             <div class="sidebar-wrapper">
                 <ul class="nav">
                     <li>
                         <a href="index.php">
-                            <i class='bx bxs-dashboard'></i>
-                            <p>Dashboard</p>
+                            <i class='bx bx-file' ></i>
+                            <p>TDP Focal Person Records</p>
                         </a>
                     </li>
                     <li class="active">
-                        <a href="users.php">
-                            <i class='bx bxs-user-detail' ></i>
-                            <p>Create / Manage / View</p>
+                        <a href="tdp_grantees.php">
+                            <i class='bx bxs-user-circle' ></i>
+                            <p>TDP Grantees</p>
                         </a>
                     </li>
                     <li>
@@ -69,7 +69,7 @@
                                 <span class="navbar-toggler-bar bar3"></span>
                             </button>
                         </div>
-                        <a class="navbar-brand" href="users.php">Create / Manage / View Accounts</a>
+                        <a class="navbar-brand" href="tdp_grantees.php">Tulong Dunong Program Grantees</a>
                     </div>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-bar navbar-kebab"></span>
@@ -99,88 +99,15 @@
             <div class="panel-header panel-header-sm">
             </div>
             <div class="content">
-                <div class="row">
-                    <div class="col">
-                        <div class="card">
-                            <div class="card-header">
-                                
-                            </div>
-                            <div class="card-body text-center">
-                                <div><i class='bx bxs-user-plus bx-lg text-secondary'></i></div>
-                                <button class="btn btn-danger w-100" data-toggle="modal" data-target="#createAccount">Create Account <span><i class='bx bx-plus' ></i></span> </button>
-                                <br><br>
-                                <p>Create an account for UNIFAST Person, TES Focal Person, and TDP Focal Person.</p>
-                            </div>  
-                        </div>
-                    </div>
-                </div>
-                <!-- Modal Create Account-->
-                <div class="modal fade" id="createAccount" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Create Account</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                            </div>
-                            <div class="modal-body">
-                                <form method="POST">
-                                    <h6 class="text-center">Please Fill up the necessary information needed</h6>
-                                    <br>
-                                    <div class="form-outline mb-4">
-                                    <label for="">Account Type</label>
-                                    <select name="type" class="form-control" id="" required>
-                                        <option value="" selected disabled>Select Account Type</option>
-                                        <option value="UNIFAST">UNIFAST Person</option>
-                                        <option value="TES">TES Focal Person</option>
-                                        <option value="TDP">TDP Focal Person</option>
-                                    </select>
-                                    </div>
-                                    <div class="form-outline mb-4">
-                                        <label for="">Name</label>
-                                        <input type="text" class="form-control" name="name" placeholder="Enter Name" required/>
-                                    </div>
-                                    <div class="form-outline mb-4">
-                                        <label for="">Email</label>
-                                        <input type="email" class="form-control" name="email" placeholder="Enter Email" required/>
-                                    </div>
-                                    <div class="row">
-                                        <div class="form-group col-md-6">
-                                            <label for="">Password</label>
-                                            <input type="password" class="form-control" name="password1" placeholder="Enter Password" required/>
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <label for="">Retype Password</label>
-                                            <input type="password" class="form-control" name="password2" placeholder="Retype Password" required/>
-                                        </div>
-                                    </div>
-                                    <br>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-danger">Create Account</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
                     <div class="col">
                         <div class="card">
                             <div class="card-header">
                                 <div class="d-flex bd-highlight">
                                     <div class="p-2 w-100 bd-highlight">
-                                        <h5 class="card-category">List of Users Accounts</h5>
-                                        <h4 class="card-title">Users Account</h4>
+                                        <h5 class="card-category">List of TDP Grantees</h5>
+                                        <h4 class="card-title">TDP Grantees</h4>
                                     </div>
-                                    <div class="p-2 flex-shrink-1 bd-highlight">              
-                                    <p class="text-center">
-                                    Legend: 
-                                    </p>
-                                    <i class='bx bxs-edit text-primary' ></i> - Edit Account, <br>
-                                    <i class='bx bx-reset text-success' ></i> - Edit Account Status, <br>
-                                    <i class='bx bxs-trash text-danger' ></i> - Delete Account
-                                </div>
+                        
                             </div>
                         </div>
                         <br>
@@ -188,11 +115,11 @@
                             <div class="table-responsive">
                                 <table class="table table-hover" id="accountTable">
                                     <thead class="text-danger">
-                                    <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Account Type</th>
-                                    <th>Status</th>
-                                    <th>Action</th>
+                                    <th>Award Number</th>
+                                    <th>Firstname</th>
+                                    <th>Middlename</th>
+                                    <th>Lastname</th>
+                       
                                     </thead>
                                     <tbody>
 
@@ -202,11 +129,7 @@
                                         <td></td>
                                         <td></td>
                                 
-                                        <td>
-                                            <button class="btn btn-primary" data-toggle="modal" data-target="#edit"><i class='bx bxs-edit' ></i></button>
-                                            <button class="btn btn-success" data-toggle="modal" data-target="#enable{{f.id}}"><i class='bx bx-reset' ></i></button>
-                                            <button class="btn btn-danger"  data-toggle="modal" data-target="#delete{{f.id}}"><i class='bx bxs-trash' ></i></button>
-                                        </td>
+                                   
                                         </tr>
                                         <!-- Modal -->
                                         <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="edit{{f.id}}" aria-hidden="true">

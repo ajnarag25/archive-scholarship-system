@@ -6,7 +6,7 @@
     <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
     <link rel="icon" type="image/png" href="../assets/img/favicon.png">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <title>System Administrator - Account Settings</title>
+    <title>TDP Focal Person - Account Settings</title>
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css" rel="stylesheet">
@@ -24,21 +24,21 @@
                     <img src="../assets/logo.jpg" alt="">
                 </a>
                 <a href="" class="simple-text logo-normal">
-                    System Administrator
+                    TDP Focal Person
                 </a>
             </div>
             <div class="sidebar-wrapper">
                 <ul class="nav">
                     <li>
                         <a href="index.php">
-                            <i class='bx bxs-dashboard'></i>
-                            <p>Dashboard</p>
+                            <i class='bx bx-file' ></i>
+                            <p>TDP Focal Person Records</p>
                         </a>
                     </li>
                     <li>
-                        <a href="users.php">
-                            <i class='bx bxs-user-detail' ></i>
-                            <p>Create / Manage / View</p>
+                        <a href="tdp_grantees.php">
+                            <i class='bx bxs-user-circle' ></i>
+                            <p>TDP Grantees</p>
                         </a>
                     </li>
                     <li class="active">
@@ -152,7 +152,7 @@
                                 <div class="author">
                                     <a href="#">
                                         <img class="avatar border-gray" src="../assets/logo.jpg" alt="...">
-                                        <h5 class="title">System Administrator</h5>
+                                        <h5 class="title">TDP Focal Person</h5>
                                         <form action="">
                                             <input type="file" class="form-control" required>
                                             <button class="btn btn-danger">Update Profile Picture</button>
