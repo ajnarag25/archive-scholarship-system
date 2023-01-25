@@ -1,3 +1,11 @@
+<?php 
+  include('connection.php');
+  session_start();
+  if(isset($_SESSION['admin_data'])){
+        header('location: admin/index.php');
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,17 +26,17 @@
                 <div class="col-12 col-md-8 col-lg-6 col-xl-5">
                     <div class="card shadow-2-strong" style="border-radius: 1rem;">
                         <div class="card-body p-5 text-center">
-                            <form action="">
+                            <form action="process.php" method="POST">
                                 <h3 class="mb-2">Login Account</h3>
                                 <p class="mb-5">Please enter your email and password</p>
                                 <div class="form-outline mb-4">
-                                    <input type="email" placeholder="Enter Email" id="typeEmailX-2" class="form-control form-control" required/>
+                                    <input type="email" placeholder="Enter Email" name="email" class="form-control form-control" required/>
                                 </div>
                                 <div class="form-outline mb-4">
-                                    <input type="password" placeholder="Enter Password" id="typePasswordX-2" class="form-control form-control" required/>
+                                    <input type="password" placeholder="Enter Password" name="password" class="form-control form-control" required/>
                                 </div>
                                 <div class="form-outline mb-4">
-                                    <select class="form-select" name="" id="" required>
+                                    <select class="form-select" name=""  required>
                                         <option value="" selected disabled>Login as</option>
                                         <option value="System Administrator">System Administrator</option>
                                         <option value="UNIFAST Person">UNIFAST Person</option>
@@ -36,9 +44,9 @@
                                         <option value="TES Focal Person">TES Focal Person</option>
                                     </select>
                                 </div>
-                                <a href="" data-bs-toggle="modal" data-bs-target="#exampleModal" class="forgot">Forgot Password?</a>
+                                <a href="" data-bs-toggle="modal" data-bs-target="#forgot" class="forgot">Forgot Password?</a>
                                 <br><br>
-                                <button class="btn btn-success btn-lg btn-block w-100" type="submit">Login</button>
+                                <button class="btn btn-success btn-lg btn-block w-100" type="submit" name="login">Login</button>
                             </form>
                         </div>
                     </div>
@@ -46,12 +54,13 @@
             </div>
         </div>
     </section>
+
     <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="forgot" tabindex="-1" aria-labelledby="forgot" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Forgot Password</h5>
+                    <h5 class="modal-title" id="forgot">Forgot Password</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form action="">
@@ -70,11 +79,33 @@
     <script src="js/jquery.js"></script>
     <script src="js/bootstrap.bundle.min.js"></script>
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script>
       AOS.init({
         duration: 3000,
         once: true,
       });
     </script>
+    <?php 
+        if (isset($_SESSION['status']) && $_SESSION['status'] !='')
+        {
+    ?>
+    <script>
+        $(document).ready(function(){
+            Swal.fire({
+                icon: '<?php echo $_SESSION['status_icon'] ?>',
+                title: '<?php echo $_SESSION['status'] ?>',
+                confirmButtonColor: 'rgb(139, 43, 43',
+                confirmButtonText: 'Okay'
+            });
+        })
+
+    </script>
+    <?php
+    }else{
+        unset($_SESSION['status']);
+    }
+    ?>
 </body>
 </html>

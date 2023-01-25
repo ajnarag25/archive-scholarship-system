@@ -1,3 +1,11 @@
+<?php 
+  include('../connection.php');
+  session_start();
+  if (!isset($_SESSION['admin_data'])) {
+    header("Location: ../index.php");
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,8 +21,16 @@
     <link href="css/bootstrap.min.css" rel="stylesheet" />
     <link href="css/dashboard.css?v=1.0.1" rel="stylesheet" />
     <link href="demo/demo.css" rel="stylesheet" />
-    <link href="../assets/logo.jpg" rel="icon">
+    <?php 
+        $check_acc = $_SESSION['admin_data']['email'];
+        $query = "SELECT * FROM admin WHERE email='$check_acc'";
+        $result = mysqli_query($conn, $query);
+        while ($row = mysqli_fetch_array($result)) {
+    ?>
+        <link href="<?php echo $row['image'] ?>" rel="icon">
+    <?php } ?>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 </head>
 
 <body class="">
@@ -22,7 +38,14 @@
         <div class="sidebar" data-color="red">
             <div class="logo">
                 <a href="" class="simple-text logo-mini">
-                    <img src="../assets/logo.jpg" alt="">
+                <?php 
+                    $check_acc = $_SESSION['admin_data']['email'];
+                    $query = "SELECT * FROM admin WHERE email='$check_acc'";
+                    $result = mysqli_query($conn, $query);
+                    while ($row = mysqli_fetch_array($result)) {
+                ?>
+                    <img src="<?php echo $row['image'] ?>" alt="...">
+                <?php } ?>
                 </a>
                 <a href="" class="simple-text logo-normal">
                     System Administrator
@@ -49,7 +72,7 @@
                         </a>
                     </li>
                     <li class="active-pro">
-                        <a href="../index.php ">
+                        <a href="" data-toggle="modal" data-target="#logout">
                             <i class='bx bx-log-out' ></i>
                             <p>Logout</p>
                         </a>
@@ -57,6 +80,27 @@
                 </ul>
             </div>
         </div>
+
+        <div class="modal fade" id="logout" tabindex="-1" role="dialog" aria-labelledby="logout" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="logout">Logout</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+                    <div class="modal-body">
+                        <h6 class="text-center">Are you sure you want to logout?</h6>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                            <a href="process.php?logout" class="btn btn-danger">Yes</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
         <div class="main-panel">
             <!-- Navbar -->
             <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute bg-danger fixed-top">
@@ -87,7 +131,7 @@
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
                                     <a class="dropdown-item" href="account.php">Account Settings</a>
-                                    <a class="dropdown-item" href="../index.php">Logout</a>
+                                    <a class="dropdown-item" href="process.php?logout">Logout</a>
                                 </div>
                             </li>
                    
@@ -101,7 +145,7 @@
             <div class="content">
                 <div class="row">
                     <div class="col">
-                        <div class="card">
+                        <div class="card" data-aos="zoom-in" data-aos-duration="1000" data-aos-once="true">
                             <div class="card-header">
                                 
                             </div>
@@ -125,21 +169,21 @@
                             </button>
                             </div>
                             <div class="modal-body">
-                                <form method="POST">
+                                <form action="process.php" method="POST">
                                     <h6 class="text-center">Please Fill up the necessary information needed</h6>
                                     <br>
                                     <div class="form-outline mb-4">
                                     <label for="">Account Type</label>
-                                    <select name="type" class="form-control" id="" required>
+                                    <select name="user" class="form-control" id="" required>
                                         <option value="" selected disabled>Select Account Type</option>
-                                        <option value="UNIFAST">UNIFAST Person</option>
-                                        <option value="TES">TES Focal Person</option>
-                                        <option value="TDP">TDP Focal Person</option>
+                                        <option value="UNIFAST Person">UNIFAST Person</option>
+                                        <option value="TES Focal Person">TES Focal Person</option>
+                                        <option value="TDP Focal Person">TDP Focal Person</option>
                                     </select>
                                     </div>
                                     <div class="form-outline mb-4">
                                         <label for="">Name</label>
-                                        <input type="text" class="form-control" name="name" placeholder="Enter Name" required/>
+                                        <input type="text" class="form-control" name="name" onkeyup="lettersOnly(this)" placeholder="Enter Name" required/>
                                     </div>
                                     <div class="form-outline mb-4">
                                         <label for="">Email</label>
@@ -159,7 +203,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-danger">Create Account</button>
+                                    <button type="submit" class="btn btn-danger" name="create">Create Account</button>
                                 </div>
                             </form>
                         </div>
@@ -191,128 +235,157 @@
                                     <th>Name</th>
                                     <th>Email</th>
                                     <th>Account Type</th>
-                                    <th>Status</th>
+                                    <th>Account Status</th>
                                     <th>Action</th>
                                     </thead>
                                     <tbody>
-
+                                        <?php 
+                                            $query = "SELECT * FROM users";
+                                            $result = mysqli_query($conn, $query);
+                                            $check_row = mysqli_num_rows($result);
+                                            while ($row = mysqli_fetch_array($result)) {
+                                        ?>
                                         <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                            <td><?php echo $row['name'] ?></td>
+                                            <td><?php echo $row['email'] ?></td>
+                                            <td><?php echo $row['user'] ?></td>
+                                            <td>
+                                                <?php 
+                                                    if ($row['account_stat'] == 'active'){
+                                                        echo '<h6 class="text-success">Active</h6>';
+                                                    }else{
+                                                        echo '<h6 class="text-danger">Disabled</h6>';
+                                                    }
+                                                ?>
+                                                
+                                            </td>
+                                    
+                                            <td>
+                                                <button class="btn btn-primary" data-toggle="modal" data-target="#edit<?php echo $row['id'] ?>"><i class='bx bxs-edit' ></i></button>
+                                                <button class="btn btn-success" data-toggle="modal" data-target="#stat<?php echo $row['id'] ?>"><i class='bx bx-reset' ></i></button>
+                                                <button class="btn btn-danger"  data-toggle="modal" data-target="#delete<?php echo $row['id'] ?>"><i class='bx bxs-trash' ></i></button>
+                                            </td>
                                 
-                                        <td>
-                                            <button class="btn btn-primary" data-toggle="modal" data-target="#edit"><i class='bx bxs-edit' ></i></button>
-                                            <button class="btn btn-success" data-toggle="modal" data-target="#enable{{f.id}}"><i class='bx bx-reset' ></i></button>
-                                            <button class="btn btn-danger"  data-toggle="modal" data-target="#delete{{f.id}}"><i class='bx bxs-trash' ></i></button>
-                                        </td>
                                         </tr>
-                                        <!-- Modal -->
-                                        <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="edit{{f.id}}" aria-hidden="true">
-                                            <div class="modal-dialog" role="document">
-                                                <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLabel">Edit Credentials for User : {{f.first_name}} {{f.last_name}}</h5>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <form method="POST">
-                                                    {% csrf_token %}
-                                                    <br>
-                                                    <div class="form-outline mb-4">
-                                                        <input type="text" class="form-control" name="e_username" value={{f.username}} required/>
+                                            <!-- Modal Edit Account-->
+                                            <div class="modal fade" id="edit<?php echo $row['id'] ?>" tabindex="-1" role="dialog"  aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                        <h5 class="modal-title">Edit Account</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
                                                         </div>
-                                                    <div class="form-outline mb-4">
-                                                        <input type="text" class="form-control" name="e_first_name" value={{f.first_name}} required/>
+                                                        <div class="modal-body">
+                                                            <form action="process.php" method="POST">
+                                                                <h6 class="text-center">Edit Account of : <?php echo $row['name'] ?></h6>
+                                                                <br>
+                                                                <div class="form-outline mb-4">
+                                                                <label for="">Edit Account Type</label>
+                                                                <select name="user" class="form-control" id="" required>
+                                                                    <option value="" selected>--Select New Account Type--</option>
+                                                                    <option value="UNIFAST Person">UNIFAST Person</option>
+                                                                    <option value="TES Focal Person">TES Focal Person</option>
+                                                                    <option value="TDP Focal Person">TDP Focal Person</option>
+                                                                </select>
+                                                                </div>
+                                                                <div class="form-outline mb-4">
+                                                                    <label for="">Name</label>
+                                                                    <input type="text" class="form-control" name="name" onkeyup="lettersOnly(this)" placeholder="Enter Name" value="<?php echo $row['name'] ?>" required/>
+                                                                </div>
+                                                                <div class="form-outline mb-4">
+                                                                    <label for="">Email</label>
+                                                                    <input type="email" class="form-control" name="email" placeholder="Enter Email" value="<?php echo $row['email'] ?>" required/>
+                                                                </div>
+                                                                
+                                                                <br>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <input type="hidden" value="<?php echo $row['id'] ?>" name="id">
+                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                <button type="submit" class="btn btn-danger" name="edit">Save Changes</button>
+                                                            </div>
+                                                        </form>
                                                     </div>
-                                                    <div class="form-outline mb-4">
-                                                        <input type="text" class="form-control" name="e_last_name" value={{f.last_name}} required/>
-                                                    </div>
-                                                    <div class="form-outline mb-4">
-                                                        <input type="text" class="form-control" name="e_email" value={{f.email}} required/>
+                                                </div>
+                                            </div>
+                                            
+                                            
+                                            <!-- Modal Edit Account Status-->
+                                            <div class="modal fade" id="stat<?php echo $row['id'] ?>" tabindex="-1" role="dialog"  aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                        <h5 class="modal-title">Edit Account Status</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
                                                         </div>
-                                                    
-                                                    <br>
-                                                </div>
-                                                    <div class="modal-footer">
-                                                    <input type="hidden" name="id_update_admin" value="{{f.id}}">
-                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                    <button type="submit" class="btn btn-success">Update</button>
+                                                        <div class="modal-body">
+                                                            <form action="process.php" method="POST">
+                                                                <h6 class="text-center">Edit Account Status of : <?php echo $row['name'] ?></h6>
+                                                                <br>
+                                                                <div class="form-outline mb-4">
+                                                                    <label for="">Account Status</label>
+                                                                    <select name="stat" class="form-control" id="" required>
+                                                                        <option value="" selected disabled>--Select New Account Status--</option>
+                                                                        <option value="active">Enable</option>
+                                                                        <option value="disabled">Disable</option>   
+                                                                    </select>
+                                                                </div>
+                                                                <br>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <input type="hidden" value="<?php echo $row['id'] ?>" name="id_stat">
+                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                <button type="submit" class="btn btn-danger" name="edit_stat">Save Changes</button>
+                                                            </div>
+                                                        </form>
                                                     </div>
-                                                </form>
                                                 </div>
                                             </div>
-                                        </div>
 
-                                    
 
-                                        <!-- Modal -->
-                                        <div class="modal fade" id="enable{{f.id}}" tabindex="-1" role="dialog" aria-labelledby="delete{f.id}}" aria-hidden="true">
-                                        <div class="modal-dialog" role="document">
-                                            <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">Enable Account Admin : {{f.first_name}} {{f.last_name}}</h5>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body text-center">
-                                                <form method="POST">
-                                                {% csrf_token %}
-                                                <h4>Are you sure to enable this user admin?</h4>
-                                            </div>
-                                                <div class="modal-footer">
-                                                <input type="hidden" name="id_enable_admin" value="{{f.id}}">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                <button type="submit" class="btn btn-success">Enable</button>
+                                            <!-- Modal Delete Account-->
+                                            <div class="modal fade" id="delete<?php echo $row['id'] ?>" tabindex="-1" role="dialog"  aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                        <h5 class="modal-title">Delete Account</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <form action="process.php" method="POST">
+                                                                <br>
+                                                                <h6 class="text-center">Delete Account of : <?php echo $row['name'] ?></h6>
+                                                                <br>
+                                                                <p class="text-center"><i class='bx bxs-message-alt-error bx-flashing' style="color:red"></i> Deleting this account is irreversible!</p>
+                                                                <br>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <input type="hidden" value="<?php echo $row['id'] ?>" name="id_del">
+                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                <button type="submit" class="btn btn-danger" name="delete">Delete Account</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
                                                 </div>
-                                            </form>
                                             </div>
-                                        </div>
-                                        </div>
 
-                                        <!-- Modal -->
-                                        <div class="modal fade" id="delete{{f.id}}" tabindex="-1" role="dialog" aria-labelledby="delete{f.id}}" aria-hidden="true">
-                                        <div class="modal-dialog" role="document">
-                                            <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">Removing Admin : {{f.first_name}} {{f.last_name}}</h5>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body text-center">
-                                                <form method="POST">
-                                                {% csrf_token %}
-                                                <p><strong><i class='bx bxs-error bx-flashing' style="color: red;"></i> Warning this Action is Irreversible!</strong></p>
-                                                <h4>Are you sure to remove this user admin?</h4>
-                                            </div>
-                                                <div class="modal-footer">
-                                                <input type="hidden" name="id_delete_admin" value="{{f.id}}">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                <button type="submit" class="btn btn-danger">Remove</button>
-                                                </div>
-                                            </form>
-                                            </div>
-                                        </div>
+                                        <?php } ?>
 
-                                        </div>
-
-                                        </div>
-
-
-                                    
                                     </tbody>
                                 </table>
-
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+          
        
             <footer class="footer">
                 <div class="container-fluid">
@@ -329,16 +402,52 @@
     </div>
 </body>
 
-<script src="js/core/jquery.min.js"></script>
-<script src="js/core/popper.min.js"></script>
-<script src="js/core/bootstrap.min.js"></script>
-<script src="js/plugins/perfect-scrollbar.jquery.min.js"></script>
-<script src="js/plugins/chartjs.min.js"></script>
-<script src="js/plugins/bootstrap-notify.js"></script>
-<script src="js/dashboard.js?v=1.0.1"></script>
-<script src="demo/demo.js"></script>
-<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.js"></script>
-<script>
-    $('#accountTable').DataTable()
-</script>
+    <script src="js/core/jquery.min.js"></script>
+    <script src="js/core/popper.min.js"></script>
+    <script src="js/core/bootstrap.min.js"></script>
+    <script src="js/plugins/perfect-scrollbar.jquery.min.js"></script>
+    <script src="js/plugins/chartjs.min.js"></script>
+    <script src="js/plugins/bootstrap-notify.js"></script>
+    <script src="js/dashboard.js?v=1.0.1"></script>
+    <script src="demo/demo.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.js"></script>
+    <script>
+        $('#accountTable').DataTable()
+    </script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 3000,
+            once: true,
+        });
+    </script>
+    <script>
+        function lettersOnly(input) {
+            var regex = /[^a-z ]/gi;
+            input.value = input.value.replace(regex, "");
+        }
+    </script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <?php 
+        if (isset($_SESSION['status']) && $_SESSION['status'] !='')
+        {
+    ?>
+    <script>
+        $(document).ready(function(){
+            Swal.fire({
+                icon: '<?php echo $_SESSION['status_icon'] ?>',
+                title: '<?php echo $_SESSION['status'] ?>',
+                confirmButtonColor: 'rgb(139, 43, 43',
+                confirmButtonText: 'Okay'
+            });
+            <?php  unset($_SESSION['status']); ?>
+        })
+    </script>
+    <?php
+    }else{
+        unset($_SESSION['status']);
+    }
+    ?>
+
 </html>

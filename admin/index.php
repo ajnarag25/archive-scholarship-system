@@ -1,3 +1,10 @@
+<?php 
+  include('../connection.php');
+  session_start();
+  if (!isset($_SESSION['admin_data'])) {
+    header("Location: ../index.php");
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,15 +20,31 @@
     <link href="css/bootstrap.min.css" rel="stylesheet" />
     <link href="css/dashboard.css?v=1.0.1" rel="stylesheet" />
     <link href="demo/demo.css" rel="stylesheet" />
-    <link href="../assets/logo.jpg" rel="icon">
+    <?php 
+        $check_acc = $_SESSION['admin_data']['email'];
+        $query = "SELECT * FROM admin WHERE email='$check_acc'";
+        $result = mysqli_query($conn, $query);
+        while ($row = mysqli_fetch_array($result)) {
+    ?>
+        <link href="<?php echo $row['image'] ?>" rel="icon">
+    <?php } ?>
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 </head>
+
 
 <body class="">
     <div class="wrapper ">
         <div class="sidebar" data-color="red">
             <div class="logo">
                 <a href="" class="simple-text logo-mini">
-                    <img src="../assets/logo.jpg" alt="">
+                <?php 
+                    $check_acc = $_SESSION['admin_data']['email'];
+                    $query = "SELECT * FROM admin WHERE email='$check_acc'";
+                    $result = mysqli_query($conn, $query);
+                    while ($row = mysqli_fetch_array($result)) {
+                ?>
+                    <img src="<?php echo $row['image'] ?>" alt="...">
+                <?php } ?>
                 </a>
                 <a href="" class="simple-text logo-normal">
                     System Administrator
@@ -48,7 +71,7 @@
                         </a>
                     </li>
                     <li class="active-pro">
-                        <a href="../index.php ">
+                        <a href="" data-toggle="modal" data-target="#logout">
                             <i class='bx bx-log-out' ></i>
                             <p>Logout</p>
                         </a>
@@ -56,6 +79,27 @@
                 </ul>
             </div>
         </div>
+
+        <div class="modal fade" id="logout" tabindex="-1" role="dialog" aria-labelledby="logout" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="logout">Logout</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+                    <div class="modal-body">
+                        <h6 class="text-center">Are you sure you want to logout?</h6>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                            <a href="process.php?logout" class="btn btn-danger">Yes</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="main-panel">
             <!-- Navbar -->
             <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute bg-danger fixed-top">
@@ -86,7 +130,7 @@
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
                                     <a class="dropdown-item" href="account.php">Account Settings</a>
-                                    <a class="dropdown-item" href="../index.php">Logout</a>
+                                    <a class="dropdown-item" href="process.php?logout">Logout</a>
                                 </div>
                             </li>
                    
@@ -98,7 +142,7 @@
             <div class="panel-header panel-header-sm">
             </div>
             <div class="content">
-                <div class="row">
+                <div class="row " data-aos="zoom-in" data-aos-duration="1000" data-aos-once="true">
                     <div class="col-lg-4">
                         <div class="card card-chart">
                             <div class="card-header text-center">
@@ -108,7 +152,12 @@
                             <div class="card-body text-center">
                                 <img src="assets/unifast.png" width="150" alt="">
                                 <hr>
-                                <h1 class="text-secondary">5</h1>
+                                <?php 
+                                    $query = "SELECT * FROM users WHERE user='UNIFAST Person' AND account_stat='active'";
+                                    $result = mysqli_query($conn, $query);
+                                    $unifast = mysqli_num_rows($result);
+                                ?>
+                                <h1 class="text-secondary"><?php echo $unifast ?></h1>
                             </div>
                         </div>
                     </div>
@@ -121,7 +170,12 @@
                             <div class="card-body text-center">
                                 <img src="assets/tes.png" width="150" alt="">
                                 <hr>
-                                <h1 class="text-secondary">15</h1>
+                                <?php 
+                                    $query = "SELECT * FROM users WHERE user='TES Focal Person' AND account_stat='active'";
+                                    $result = mysqli_query($conn, $query);
+                                    $tes = mysqli_num_rows($result);
+                                ?>
+                                <h1 class="text-secondary"><?php echo $tes ?></h1>
                             </div>  
                         </div>
                     </div>
@@ -134,7 +188,12 @@
                             <div class="card-body text-center">
                                 <img src="assets/tdp.png" width="150" alt="">
                                 <hr>
-                                <h1 class="text-secondary">3</h1>
+                                <?php 
+                                    $query = "SELECT * FROM users WHERE user='TDP Focal Person' AND account_stat='active'";
+                                    $result = mysqli_query($conn, $query);
+                                    $tdp = mysqli_num_rows($result);
+                                ?>
+                                <h1 class="text-secondary"><?php echo $tdp ?></h1>
                             </div>
                         </div>
                     </div>
@@ -164,5 +223,12 @@
 <script src="js/plugins/bootstrap-notify.js"></script>
 <script src="js/dashboard.js?v=1.0.1"></script>
 <script src="demo/demo.js"></script>
+<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script>
+    AOS.init({
+        duration: 3000,
+        once: true,
+    });
+</script>
 
 </html>
