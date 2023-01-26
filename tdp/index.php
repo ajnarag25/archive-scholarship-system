@@ -1,3 +1,11 @@
+<?php 
+  include('../connection.php');
+  session_start();
+  if (!isset($_SESSION['user_data'])) {
+    header("Location: ../index.php");
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,6 +23,7 @@
     <link href="demo/demo.css" rel="stylesheet" />
     <link href="../assets/logo.jpg" rel="icon">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 </head>
 
 <body class="">
@@ -49,7 +58,7 @@
                         </a>
                     </li>
                     <li class="active-pro">
-                        <a href="../index.php ">
+                        <a href="" data-toggle="modal" data-target="#logout">
                             <i class='bx bx-log-out' ></i>
                             <p>Logout</p>
                         </a>
@@ -57,6 +66,27 @@
                 </ul>
             </div>
         </div>
+
+        <div class="modal fade" id="logout" tabindex="-1" role="dialog" aria-labelledby="logout" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="logout">Logout</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+                    <div class="modal-body">
+                        <h6 class="text-center">Are you sure you want to logout?</h6>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                            <a href="process.php?logout" class="btn btn-danger">Yes</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
         <div class="main-panel">
             <!-- Navbar -->
             <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute bg-danger fixed-top">
@@ -87,7 +117,7 @@
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
                                     <a class="dropdown-item" href="account.php">Account Settings</a>
-                                    <a class="dropdown-item" href="../index.php">Logout</a>
+                                    <a class="dropdown-item" href="" data-toggle="modal" data-target="#logout">Logout</a>
                                 </div>
                             </li>
                    
@@ -101,19 +131,19 @@
             <div class="content">
                 <div class="row">
                     <div class="col">
-                        <div class="card">
+                        <div class="card" data-aos="zoom-in" data-aos-duration="1000" data-aos-once="true">
                             <div class="card-header">
                                 
                             </div>
                             <div class="card-body text-center">
                                 <div><i class='bx bx-file bx-lg text-secondary'></i></div>
-                                <button class="btn btn-danger w-100" data-toggle="modal" data-target="#uploadTES">Upload File <span><i class='bx bx-plus' ></i></span> </button>
+                                <button class="btn btn-danger w-100" data-toggle="modal" data-target="#uploadTDP">Upload File <span><i class='bx bx-plus' ></i></span> </button>
                             </div>  
                         </div>
                     </div>
                 </div>
                 <!-- Modal Create Account-->
-                <div class="modal fade" id="uploadTES" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal fade" id="uploadTDP" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -307,5 +337,12 @@
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.js"></script>
 <script>
     $('#accountTable').DataTable()
+</script>
+<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script>
+    AOS.init({
+        duration: 3000,
+        once: true,
+    });
 </script>
 </html>

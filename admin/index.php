@@ -130,7 +130,7 @@
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
                                     <a class="dropdown-item" href="account.php">Account Settings</a>
-                                    <a class="dropdown-item" href="process.php?logout">Logout</a>
+                                    <a class="dropdown-item" href="" data-toggle="modal" data-target="#logout">Logout</a>
                                 </div>
                             </li>
                    
