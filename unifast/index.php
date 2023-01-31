@@ -1,7 +1,7 @@
 <?php 
   include('../connection.php');
   session_start();
-  if (!isset($_SESSION['user_data'])) {
+  if (!isset($_SESSION['user_data_unifast'])) {
     header("Location: ../index.php");
     }
 ?>

@@ -1,8 +1,14 @@
 <?php 
-  include('connection.php');
-  session_start();
-  if(isset($_SESSION['admin_data'])){
+    include('connection.php');
+    session_start();
+    if(isset($_SESSION['admin_data'])){
         header('location: admin/index.php');
+    }elseif(isset($_SESSION['user_data_unifast'])){
+        header('location: unifast/index.php');
+    }elseif(isset($_SESSION['user_data_tes'])){
+        header('location: tes/index.php');
+    }elseif(isset($_SESSION['user_data_tdp'])){
+        header('location: tdp/index.php');
     }
 ?>
 

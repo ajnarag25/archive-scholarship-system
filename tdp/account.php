@@ -1,7 +1,7 @@
 <?php 
   include('../connection.php');
   session_start();
-  if (!isset($_SESSION['user_data'])) {
+  if (!isset($_SESSION['user_data_tdp'])) {
     header("Location: ../index.php");
     }
 ?>
@@ -137,7 +137,7 @@
                             <div class="card-body">
                                 <form action="process.php" method="POST">
                                     <?php 
-                                        $check_acc = $_SESSION['user_data']['email'];
+                                        $check_acc = $_SESSION['user_data_tdp']['email'];
                                         $query = "SELECT * FROM users WHERE email='$check_acc'";
                                         $result = mysqli_query($conn, $query);
                                         $check_row = mysqli_num_rows($result);
@@ -201,7 +201,7 @@
                                 <div class="author">
                                     <a href="#">
                                     <?php 
-                                        $check_acc = $_SESSION['user_data']['email'];
+                                        $check_acc = $_SESSION['user_data_tdp']['email'];
                                         $query = "SELECT * FROM users WHERE email='$check_acc'";
                                         $result = mysqli_query($conn, $query);
                                         while ($row = mysqli_fetch_array($result)) {
@@ -249,7 +249,7 @@
                                         </div>
                                     </div>
                                     <?php 
-                                        $check_acc = $_SESSION['user_data']['email'];
+                                        $check_acc = $_SESSION['user_data_tdp']['email'];
                                         $query = "SELECT * FROM users WHERE email='$check_acc'";
                                         $result = mysqli_query($conn, $query);
                                         while ($row = mysqli_fetch_array($result)) {
