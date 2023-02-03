@@ -33,7 +33,7 @@ if (isset($_POST['login'])) {
                 unset($_SESSION['status']);
                 header('location:unifast/index.php');
             }else{
-                $_SESSION['status'] = 'Account is already registered in other user type';
+                $_SESSION['status'] = 'Invalid Credentials!';
                 $_SESSION['status_icon'] = 'error';
                 header('location:index.php');
             }
@@ -49,7 +49,7 @@ if (isset($_POST['login'])) {
                 unset($_SESSION['status']);
                 header('location:tes/index.php');
             }else{
-                $_SESSION['status'] = 'Account is already registered in other user type';
+                $_SESSION['status'] = 'Invalid Credentials!';
                 $_SESSION['status_icon'] = 'error';
                 header('location:index.php');
             }
@@ -65,7 +65,7 @@ if (isset($_POST['login'])) {
                 unset($_SESSION['status']);
                 header('location:tdp/index.php');
             }else{
-                $_SESSION['status'] = 'Account is already registered in other user type';
+                $_SESSION['status'] = 'Invalid Credentials!';
                 $_SESSION['status_icon'] = 'error';
                 header('location:index.php');
             }

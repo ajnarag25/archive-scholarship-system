@@ -11,8 +11,6 @@
 
 <head>
     <meta charset="utf-8" />
-    <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
-    <link rel="icon" type="image/png" href="../assets/img/favicon.png">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <title>UNIFAST Person - Account Records</title>
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
@@ -148,15 +146,15 @@
                             </button>
                             </div>
                             <div class="modal-body">
-                                <form method="POST">
+                                <form action="process.php" method="POST" enctype="multipart/form-data">
                                     <div class="form-outline mb-4">
                                         <label for="">File</label>
-                                        <input type="file" class="form-control" name="name" required/>
+                                        <input type="file" class="form-control" name="unifast_file" required/>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-danger">Upload File</button>
+                                    <button type="submit" class="btn btn-danger" name="upload_unifast">Upload File</button>
                                 </div>
                             </form>
                         </div>
@@ -340,4 +338,27 @@
         once: true,
     });
 </script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <?php 
+        if (isset($_SESSION['status']) && $_SESSION['status'] !='')
+        {
+    ?>
+    <script>
+        $(document).ready(function(){
+            Swal.fire({
+                icon: '<?php echo $_SESSION['status_icon'] ?>',
+                title: '<?php echo $_SESSION['status'] ?>',
+                confirmButtonColor: 'rgb(139, 43, 43',
+                confirmButtonText: 'Okay'
+            });
+            <?php  unset($_SESSION['status']); ?>
+        })
+    </script>
+    
+    <?php
+    }else{
+        unset($_SESSION['status']);
+    }
+    ?>
 </html>

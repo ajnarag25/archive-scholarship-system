@@ -85,5 +85,33 @@ if (isset($_POST['change_pic_unifast'])) {
     }
 }
 
+// Upload file
+if (isset($_POST['upload_unifast'])) { 
+    $filename = $_FILES['unifast_file']['name'];
+    $destination = 'uploads_unifast/files/' . $filename;
+    $extension = pathinfo($filename, PATHINFO_EXTENSION);
+
+    $file = $_FILES['unifast_file']['tmp_name'];
+    $size = $_FILES['unifast_file']['size'];
+
+    if (!in_array($extension, ['pdf', 'xlsx', 'csv'])) {
+        $_SESSION['status'] = 'You file extension must be .pdf, .xlsx or .csv';
+        $_SESSION['status_icon'] = 'error';
+        header('location: index.php');
+    } elseif ($_FILES['unifast_file']['size'] > 1000000) { // file shouldn't be larger than 1Megabyte
+        $_SESSION['status'] = 'File is too large!';
+        $_SESSION['status_icon'] = 'error';
+        header('location: index.php');
+    } else {
+        if (move_uploaded_file($file, $destination)) {
+            $sql = "INSERT INTO files (name, size, downloads) VALUES ('$filename', $size, 0)";
+            if (mysqli_query($conn, $sql)) {
+                echo "File uploaded successfully";
+            }
+        } else {
+            echo "Failed to upload file.";
+        }
+    }
+}
 
 ?>
