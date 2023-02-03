@@ -207,7 +207,7 @@
                                         <img class="avatar border-gray" src="<?php echo $row['image'] ?>" alt="...">
                                      
                                   
-                                        <h5 class="title">TES Focal Person</h5>
+                                        <h5 class="title"><?php echo $row['name'] ?></h5>
                                         <form action="process.php" method="POST" enctype="multipart/form-data">
                                             <input type="file" class="form-control" name="pic" required>
                                             <input type="hidden" value="<?php echo $row['id'] ?>" name="id">

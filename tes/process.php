@@ -55,7 +55,7 @@ if (isset($_POST['change_pass_tes'])) {
 // Update Profile Picture
 if (isset($_POST['change_pic_tes'])) {
     $id = $_POST['id'];
-    $target_dir = "uploads_tes/";
+    $target_dir = "uploads/";
     $target_file = $target_dir . basename($_FILES["pic"]["name"]);
     $uploadOk = 1;
     $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));

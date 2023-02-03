@@ -6,6 +6,7 @@
 if (isset($_GET['logout'])) {
     session_destroy();
     header('location: ../index.php');
+    // error_reporting();
 }   
 
 
@@ -55,7 +56,7 @@ if (isset($_POST['change_pass_unifast'])) {
 // Update Profile Picture
 if (isset($_POST['change_pic_unifast'])) {
     $id = $_POST['id'];
-    $target_dir = "uploads_unifast/";
+    $target_dir = "uploads/";
     $target_file = $target_dir . basename($_FILES["pic"]["name"]);
     $uploadOk = 1;
     $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
@@ -87,30 +88,95 @@ if (isset($_POST['change_pic_unifast'])) {
 
 // Upload file
 if (isset($_POST['upload_unifast'])) { 
+    date_default_timezone_set('Asia/Manila');
+    $set_date = date('Y-m-d');
+    $get_email = $_POST['email'];
     $filename = $_FILES['unifast_file']['name'];
-    $destination = 'uploads_unifast/files/' . $filename;
+    $destination = 'uploads/files/' . $filename;
     $extension = pathinfo($filename, PATHINFO_EXTENSION);
 
     $file = $_FILES['unifast_file']['tmp_name'];
     $size = $_FILES['unifast_file']['size'];
 
-    if (!in_array($extension, ['pdf', 'xlsx', 'csv'])) {
-        $_SESSION['status'] = 'You file extension must be .pdf, .xlsx or .csv';
-        $_SESSION['status_icon'] = 'error';
+    $sql = "SELECT * FROM unifast_files WHERE name='$filename'";
+    $result = mysqli_query($conn, $sql);
+
+    if ($result->num_rows > 0) {
+        $_SESSION['status'] = 'File is already existed!';
+        $_SESSION['status_icon'] = 'warning';
         header('location: index.php');
-    } elseif ($_FILES['unifast_file']['size'] > 1000000) { // file shouldn't be larger than 1Megabyte
-        $_SESSION['status'] = 'File is too large!';
-        $_SESSION['status_icon'] = 'error';
-        header('location: index.php');
-    } else {
-        if (move_uploaded_file($file, $destination)) {
-            $sql = "INSERT INTO files (name, size, downloads) VALUES ('$filename', $size, 0)";
-            if (mysqli_query($conn, $sql)) {
-                echo "File uploaded successfully";
-            }
+    }else{
+        if (!in_array($extension, ['pdf', 'xlsx', 'csv'])) {
+            $_SESSION['status'] = 'You file extension must be .pdf, .xlsx or .csv';
+            $_SESSION['status_icon'] = 'error';
+            header('location: index.php');
+        } elseif ($_FILES['unifast_file']['size'] > 100000000) { // file shouldn't be larger than 100Megabyte
+            $_SESSION['status'] = 'File is too large!';
+            $_SESSION['status_icon'] = 'error';
+            header('location: index.php');
         } else {
-            echo "Failed to upload file.";
+            if (move_uploaded_file($file, $destination)) {
+                $sql = "INSERT INTO unifast_files (user_email, name, date_upload, size, downloads) VALUES ('$get_email', '$filename', '$set_date', $size, 0)";
+                if (mysqli_query($conn, $sql)) {
+                    $_SESSION['status'] = 'File uploaded successfully!';
+                    $_SESSION['status_icon'] = 'success';
+                    header('location: index.php');
+                }
+            } else {
+                $_SESSION['status'] = 'Failed to upload file.';
+                $_SESSION['status_icon'] = 'error';
+                header('location: index.php');
+            }
         }
+    }
+
+}
+
+// Download file
+if (isset($_POST['download_unifast'])) {
+    $id = $_POST['id_unifast_download'];
+
+    // fetch file to download from database
+    $sql = "SELECT * FROM unifast_files WHERE id=$id";
+    $result = mysqli_query($conn, $sql);
+
+    $file = mysqli_fetch_assoc($result);
+    $filepath = 'uploads/files/' . $file['name'];
+
+    if (file_exists($filepath)) {
+        header('Content-Description: File Transfer');
+        header('Content-Type: application/octet-stream');
+        header('Content-Disposition: attachment; filename=' . basename($filepath));
+        header('Expires: 0');
+        header('Cache-Control: must-revalidate');
+        header('Pragma: public');
+        header('Content-Length: ' . filesize('uploads/files/' . $file['name']));
+        readfile('uploads/files/' . $file['name']);
+
+        $newCount = $file['downloads'] + 1;
+        $updateQuery = "UPDATE unifast_files SET downloads=$newCount WHERE id=$id";
+        mysqli_query($conn, $updateQuery);
+        exit;
+    }else{
+        $_SESSION['status'] = 'Failed to download file.';
+        $_SESSION['status_icon'] = 'error';
+        header('location: index.php');
+    }
+
+}
+
+// Delete File
+if (isset($_POST['delete_unifast'])) {
+    $id_del = $_POST['id_delete_unifast'];
+    if ($id_del != null){
+        $conn->query("DELETE FROM unifast_files WHERE id='$id_del';") or die($conn->error);
+        $_SESSION['status'] = 'Successfully Deleted.';
+        $_SESSION['status_icon'] = 'success';
+        header('location: index.php');
+    }else{
+        $_SESSION['status'] = 'An Error Occured.';
+        $_SESSION['status_icon'] = 'error';
+        header('location: index.php');
     }
 }
 
