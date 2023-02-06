@@ -105,6 +105,7 @@
                 confirmButtonColor: 'rgb(139, 43, 43',
                 confirmButtonText: 'Okay'
             });
+            <?php  unset($_SESSION['status']); ?>
         })
 
     </script>

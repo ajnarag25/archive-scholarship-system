@@ -42,12 +42,6 @@
                             <p>TES Focal Person Records</p>
                         </a>
                     </li>
-                    <li>
-                        <a href="tes_grantees.php">
-                            <i class='bx bxs-user-circle' ></i>
-                            <p>TES Grantees</p>
-                        </a>
-                    </li>
                     <li class="active"> 
                         <a href="account.php">
                             <i class='bx bxs-cog'></i>
@@ -314,18 +308,7 @@
 <script src="js/dashboard.js?v=1.0.1"></script>
 <script src="demo/demo.js"></script>
 <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-<script>
-    AOS.init({
-        duration: 3000,
-        once: true,
-    });
-</script>
-<script>
-    function lettersOnly(input) {
-        var regex = /[^a-z ]/gi;
-        input.value = input.value.replace(regex, "");
-    }
-</script>
+<script src="js/functions.js"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <?php 

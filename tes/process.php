@@ -85,5 +85,96 @@ if (isset($_POST['change_pic_tes'])) {
     }
 }
 
+// Upload TES Grantees
+if(isset($_POST["upload_tes"])){
+    $filename=$_FILES["file"]["tmp_name"];
+    $ext = strtolower(end(explode('.', $_FILES['file']['name'])));
+    date_default_timezone_set('Asia/Manila');
+    $set_date = date("Y-m-d");
+
+    
+    if($_FILES["file"]["size"] > 0){
+        $file = fopen($filename, "r");
+        if($ext === 'csv'){
+            while (($emapData = fgetcsv($file, 10000, ",")) !== FALSE){
+                $d1 = $emapData[1];
+                $d2 = $emapData[2];
+                $d3 = $emapData[3];
+                $d4 = $emapData[4];
+                $d5 = $emapData[5];
+                
+                $query_code = "SELECT * FROM tes_grantees WHERE firstname='$d4' AND middlename='$d5' AND lastname='$d3'";
+                $result2 = $conn->query($query_code);
+    
+                if ($result2->num_rows > 0) {
+                    $_SESSION['status'] = 'Data is already existing!';
+                    $_SESSION['status_icon'] = 'error';
+                    header('location: index.php');
+                } else {
+                    $sql = "INSERT into tes_grantees (scholarship, award_no, firstname, middlename, lastname, date_upload) 
+                    values('$emapData[1]','$emapData[2]','$emapData[4]','$emapData[5]','$emapData[3]', '$set_date')";
+                    $result = mysqli_query( $conn, $sql );
+                }
+            }
+            fclose($file);
+            //throws a message if data successfully imported to mysql database from excel file
+            $_SESSION['status'] = 'CSV File successfully imported.';
+            $_SESSION['status_icon'] = 'success';
+            header('location: index.php');
+    
+            //close of connection
+            mysqli_close($conn); 
+        }else{
+            $_SESSION['status'] = 'Please upload a csv file only!';
+            $_SESSION['status_icon'] = 'error';
+            header('location: index.php');
+        }
+       
+
+    }
+ 
+}	 
+
+// Update Grantees Credentials
+if (isset($_POST['update_tes'])) {
+    $id = $_POST['id_update_tes'];
+    $scholar = $_POST['scholarship'];
+    $award = $_POST['award_no'];
+    $fname = $_POST['fname'];
+    $mname = $_POST['mname'];
+    $lname = $_POST['lname'];
+
+    $sql = "SELECT * FROM tes_grantees WHERE scholarship='$scholar' AND award_no='$award' AND firstname='$fname' AND middlename='$mname' AND lastname='$lname' AND id='$id'";
+    $result = mysqli_query($conn, $sql);
+
+    if (!$result->num_rows > 0) {
+        $conn->query("UPDATE tes_grantees SET scholarship='$scholar',award_no='$award',firstname='$fname',middlename='$mname',lastname='$lname' WHERE id='$id'") or die($conn->error);
+        $_SESSION['status'] = 'Successfully Updated the Account';
+        $_SESSION['status_icon'] = 'success';
+        header('location:index.php');
+    }else{
+        $_SESSION['status'] = 'No changes has been made';
+        $_SESSION['status_icon'] = 'warning';
+        header('location:index.php');
+    }
+}
+
+// Delete Grantees
+if (isset($_POST['delete_tes'])) {
+    $id_delete = $_POST['id_delete_tes'];
+
+    if($id_delete != null){
+        $conn->query("DELETE FROM tes_grantees WHERE id='$id_delete';") or die($conn->error);
+        $_SESSION['status'] = 'Successfully Deleted';
+        $_SESSION['status_icon'] = 'success';
+        header('location:index.php');
+    }else{
+        $_SESSION['status'] = 'An Error Occured!';
+        $_SESSION['status_icon'] = 'error';
+        header('location:index.php');
+    }
+    
+}
+
 
 ?>

@@ -44,12 +44,6 @@
                         </a>
                     </li>
                     <li>
-                        <a href="tes_grantees.php">
-                            <i class='bx bxs-user-circle' ></i>
-                            <p>TES Grantees</p>
-                        </a>
-                    </li>
-                    <li>
                         <a href="account.php">
                             <i class='bx bxs-cog'></i>
                             <p>Account Settings</p>
@@ -151,15 +145,15 @@
                             </button>
                             </div>
                             <div class="modal-body">
-                                <form method="POST">
+                                <form method="POST" action="process.php" enctype="multipart/form-data">
                                     <div class="form-outline mb-4">
                                         <label for="">File</label>
-                                        <input type="file" class="form-control" name="name" required/>
+                                        <input type="file" class="form-control" name="file" required/>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-danger">Upload File</button>
+                                    <button type="submit" class="btn btn-danger" name="upload_tes">Upload File</button>
                                 </div>
                             </form>
                         </div>
@@ -171,14 +165,16 @@
                                 <div class="d-flex bd-highlight">
                                     <div class="p-2 w-100 bd-highlight">
                                         <h5 class="card-category">List of File Records</h5>
-                                        <h4 class="card-title">File Records</h4>
+                                        <h4 class="card-title">TES Grantees</h4>
+                                        <button class="btn btn-danger" id="make_report"><i class='bx bx-download' ></i> Make Report</button>
+
                                     </div>
                                     <div class="p-2 flex-shrink-1 bd-highlight">              
                                     <p class="text-center">
                                     Legend: 
                                     </p>
-                                    <i class='bx bx-download text-primary' ></i> - Download File, <br>
-                                    <i class='bx bx-folder-open text-success' ></i> - Open File, <br>
+                                    <!-- <i class='bx bx-download text-primary' ></i> - Download File, <br> -->
+                                    <i class='bx bx-edit text-primary' ></i> - Edit File, <br>
                                     <i class='bx bxs-trash text-danger' ></i> - Delete File
                                 </div>
                             </div>
@@ -188,56 +184,75 @@
                             <div class="table-responsive">
                                 <table class="table table-hover" id="accountTable">
                                     <thead class="text-danger">
-                                    <th>File Name</th>
-                                    <th>Date Uploaded</th>
+                                    <th>Date Upload</th>
+                                    <th>Scholarship</th>
+                                    <th>Award_no</th>
+                                    <th>Firstname</th>
+                                    <th>Middlename</th>
+                                    <th>Lastname</th>
                                     <th>Action</th>
                                     </thead>
                                     <tbody>
-
+                                    <?php 
+                                        $query = "SELECT * FROM tes_grantees";
+                                        $result = mysqli_query($conn, $query);
+                                        while ($row = mysqli_fetch_array($result)) {
+                                    ?>
                                         <tr>
-                                        <td></td>
-                                        <td></td>                             
-                                        <td>
-                                            <button class="btn btn-primary" data-toggle="modal" data-target="#edit"><i class='bx bx-download' ></i></button>
-                                            <button class="btn btn-success" data-toggle="modal" data-target="#enable{{f.id}}"><i class='bx bx-folder-open' ></i></button>
-                                            <button class="btn btn-danger"  data-toggle="modal" data-target="#delete{{f.id}}"><i class='bx bxs-trash' ></i></button>
-                                        </td>
+                                            <td><?php echo $row['date_upload'] ?></td>
+                                            <td><?php echo $row['scholarship'] ?></td>
+                                            <td><?php echo $row['award_no'] ?></td>    
+                                            <td><?php echo $row['firstname'] ?></td>    
+                                            <td><?php echo $row['middlename'] ?></td>    
+                                            <td><?php echo $row['lastname'] ?></td>                          
+                                            <td>
+                                                <!-- <button class="btn btn-primary" data-toggle="modal" data-target="#edit"><i class='bx bx-download' ></i></button> -->
+                                                <button class="btn btn-primary" data-toggle="modal" data-target="#edit<?php echo $row['id'] ?>"><i class='bx bx-edit' ></i></button>
+                                                <button class="btn btn-danger"  data-toggle="modal" data-target="#delete<?php echo $row['id'] ?>"><i class='bx bxs-trash' ></i></button>
+                                            </td>
                                         </tr>
                                         <!-- Modal -->
-                                        <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="edit{{f.id}}" aria-hidden="true">
+                                        <div class="modal fade" id="edit<?php echo $row['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="edit{{f.id}}" aria-hidden="true">
                                             <div class="modal-dialog" role="document">
                                                 <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLabel">Edit Credentials for User : {{f.first_name}} {{f.last_name}}</h5>
+                                                    <h5 class="modal-title" id="exampleModalLabel">Edit Credentials of : <br> <b><?php echo $row['firstname'] ?> <?php echo $row['middlename'] ?> <?php echo $row['lastname'] ?></b> </h5>
                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                     </button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <form method="POST">
-                                                    {% csrf_token %}
-                                                    <br>
-                                                    <div class="form-outline mb-4">
-                                                        <input type="text" class="form-control" name="e_username" value={{f.username}} required/>
+                                                    <form action="process.php" method="POST">
+                                                        <br>
+                                                        <div class="form-outline mb-4">
+                                                            <label for="">Scholarship</label>
+                                                            <input type="text" class="form-control" name="scholarship" value="<?php echo $row['scholarship'] ?>" readonly/>
                                                         </div>
-                                                    <div class="form-outline mb-4">
-                                                        <input type="text" class="form-control" name="e_first_name" value={{f.first_name}} required/>
-                                                    </div>
-                                                    <div class="form-outline mb-4">
-                                                        <input type="text" class="form-control" name="e_last_name" value={{f.last_name}} required/>
-                                                    </div>
-                                                    <div class="form-outline mb-4">
-                                                        <input type="text" class="form-control" name="e_email" value={{f.email}} required/>
+                                                        <div class="form-outline mb-4">
+                                                            <label for="">Award No.</label>
+                                                            <input type="text" class="form-control" name="award_no" value="<?php echo $row['award_no'] ?>"required/>
                                                         </div>
-                                                    
-                                                    <br>
+                                                        <div class="form-outline mb-4">
+                                                            <label for="">Firstname</label>
+                                                            <input type="text" class="form-control" name="fname" onkeyup="lettersOnly(this)" value="<?php echo $row['firstname'] ?>" required/>
+                                                        </div>
+                                                        <div class="form-outline mb-4">
+                                                            <label for="">Middlename</label>
+                                                            <input type="text" class="form-control" name="mname" onkeyup="lettersOnly(this)" value="<?php echo $row['middlename'] ?>" required/>
+                                                        </div>
+                                                        <div class="form-outline mb-4">
+                                                            <label for="">Lastname</label>
+                                                            <input type="text" class="form-control" name="lname" onkeyup="lettersOnly(this)" value="<?php echo $row['lastname'] ?>" required/>
+                                                        </div>
+                                                        
+                                                        <br>
                                                 </div>
                                                     <div class="modal-footer">
-                                                    <input type="hidden" name="id_update_admin" value="{{f.id}}">
-                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                    <button type="submit" class="btn btn-success">Update</button>
+                                                        <input type="hidden" name="id_update_tes" value="<?php echo $row['id'] ?>">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                        <button type="submit" class="btn btn-primary" name="update_tes">Update</button>
                                                     </div>
-                                                </form>
+                                                    </form>
                                                 </div>
                                             </div>
                                         </div>
@@ -245,7 +260,7 @@
                                     
 
                                         <!-- Modal -->
-                                        <div class="modal fade" id="enable{{f.id}}" tabindex="-1" role="dialog" aria-labelledby="delete{f.id}}" aria-hidden="true">
+                                        <!-- <div class="modal fade" id="enable{{f.id}}" tabindex="-1" role="dialog" aria-labelledby="delete{f.id}}" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
                                             <div class="modal-header">
@@ -267,30 +282,30 @@
                                             </form>
                                             </div>
                                         </div>
-                                        </div>
+                                        </div> -->
 
                                         <!-- Modal -->
-                                        <div class="modal fade" id="delete{{f.id}}" tabindex="-1" role="dialog" aria-labelledby="delete{f.id}}" aria-hidden="true">
-                                        <div class="modal-dialog" role="document">
-                                            <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">Removing Admin : {{f.first_name}} {{f.last_name}}</h5>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body text-center">
-                                                <form method="POST">
-                                                {% csrf_token %}
-                                                <p><strong><i class='bx bxs-error bx-flashing' style="color: red;"></i> Warning this Action is Irreversible!</strong></p>
-                                                <h4>Are you sure to remove this user admin?</h4>
-                                            </div>
-                                                <div class="modal-footer">
-                                                <input type="hidden" name="id_delete_admin" value="{{f.id}}">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                <button type="submit" class="btn btn-danger">Remove</button>
+                                        <div class="modal fade" id="delete<?php echo $row['id'] ?>" tabindex="-1" role="dialog" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Delete Record</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body text-center">
+                                                        <h5>Are you sure you want delete the record of: <b><?php echo $row['firstname'] ?> <?php echo $row['middlename'] ?> <?php echo $row['lastname'] ?></b>  </h5>
+                                                        <p class="text-center"><i class='bx bxs-message-alt-error bx-flashing' style="color:red"></i> This action is irreversible!</p>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <form action="process.php" method="POST">
+                                                            <input type="hidden" name="id_delete_tes" value="<?php echo $row['id'] ?>">
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                            <button type="submit" class="btn btn-danger" name="delete_tes">Delete</button>
+                                                        </form>
+                                                    </div>
                                                 </div>
-                                            </form>
                                             </div>
                                         </div>
 
@@ -298,7 +313,7 @@
 
                                         </div>
 
-
+                                    <?php } ?>
                                     
                                     </tbody>
                                 </table>
@@ -333,14 +348,29 @@
 <script src="js/dashboard.js?v=1.0.1"></script>
 <script src="demo/demo.js"></script>
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.js"></script>
-<script>
-    $('#accountTable').DataTable()
-</script>
 <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-<script>
-    AOS.init({
-        duration: 3000,
-        once: true,
-    });
-</script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="js/functions.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <?php 
+        if (isset($_SESSION['status']) && $_SESSION['status'] !='')
+        {
+    ?>
+    <script>
+        $(document).ready(function(){
+            Swal.fire({
+                icon: '<?php echo $_SESSION['status_icon'] ?>',
+                title: '<?php echo $_SESSION['status'] ?>',
+                confirmButtonColor: 'rgb(139, 43, 43',
+                confirmButtonText: 'Okay'
+            });
+            <?php  unset($_SESSION['status']); ?>
+        })
+    </script>
+    
+    <?php
+    }else{
+        unset($_SESSION['status']);
+    }
+    ?>
 </html>
