@@ -23,6 +23,10 @@ if (isset($_POST['create'])) {
         $_SESSION['status'] = 'Password does not match!';
         $_SESSION['status_icon'] = 'error';
         header('location:users.php');
+    }elseif(strlen($pass1) <= 8){
+        $_SESSION['status'] = 'Password Must Contain At Least 8 Characters!';
+        $_SESSION['status_icon'] = 'error';
+        header('location:users.php');
     }else{
         if (!$result->num_rows > 0) {
             $conn->query("INSERT INTO users (name, email, password, image, user, otp, account_stat) 
