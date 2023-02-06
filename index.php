@@ -36,10 +36,10 @@
                                 <h3 class="mb-2">Login Account</h3>
                                 <p class="mb-5">Please enter your email and password</p>
                                 <div class="form-outline mb-4">
-                                    <input type="email" placeholder="Enter Email" name="email" class="form-control form-control" required/>
+                                    <input type="email" placeholder="Enter Email" name="email" class="form-control" required/>
                                 </div>
                                 <div class="form-outline mb-4">
-                                    <input type="password" placeholder="Enter Password" name="password" class="form-control form-control" required/>
+                                    <input type="password" placeholder="Enter Password" name="password" class="form-control" required/>
                                 </div>
                                 <div class="form-outline mb-4">
                                     <select class="form-select" name="user"  required>
@@ -69,13 +69,13 @@
                     <h5 class="modal-title" id="forgot">Forgot Password</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="">
+                <form action="process.php" method="POST">
                     <div class="modal-body">
-                        <input type="email" placeholder="Enter Email" id="typeEmailX-2" class="form-control form-control" required/>
+                        <input type="email" placeholder="Enter Email" name="email" class="form-control" required/>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-danger">Submit</button>
+                        <button type="submit" class="btn btn-danger" name="forgot_pass">Submit</button>
                     </div>
                 </form>
             </div>

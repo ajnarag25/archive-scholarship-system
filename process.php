@@ -81,4 +81,68 @@ if (isset($_POST['login'])) {
    
 }
 
+
+
+// Forgot Password
+if (isset($_POST['forgot_pass'])) {
+    $emails = $_POST['email'];
+    $_SESSION['check_email'] = $emails;
+    $setOTP = rand(0000,9999);
+
+    $sql = "SELECT * FROM users WHERE email='$emails'";
+    $result = mysqli_query($conn, $sql);
+    $check = mysqli_num_rows($result);
+    if ($check == 0){
+        $_SESSION['status'] = 'The email address you entered is not valid!';
+        $_SESSION['status_icon'] = 'error';
+        header('location:index.php');
+    }else{
+        $conn->query("UPDATE users SET otp='$setOTP' WHERE email='$emails'") or die($conn->error);
+        // include 'SEND_EMAIL.php';
+        header("Location: otp.php");
+    }
+
+}
+
+ // Otp Submit
+if (isset($_POST['otp_submit'])) {
+    $otp = $_POST['otp'];
+    $_SESSION['otp'] = $otp;
+    $sql = "SELECT * FROM users WHERE otp='$otp'";
+    $result = mysqli_query($conn, $sql);
+    $check = mysqli_num_rows($result);
+
+    if ($check == 0){
+        $_SESSION['status'] = 'The OTP entered is incorrect!';
+        $_SESSION['status_icon'] = 'error';
+        header('location:otp.php');
+    }else{
+        header("Location: changepass.php");
+    }
+}
+
+// Change Password
+if (isset($_POST['change_pass'])) {
+    $password1 = $_POST['pass1'];
+    $password2 = $_POST['pass2'];
+    $get_otp = $_SESSION['otp'];
+    
+    if ($password1 != $password2){
+        $_SESSION['status'] = 'Password does not match!';
+        $_SESSION['status_icon'] = 'error';
+        header('location:changepass.php');
+    }elseif(strlen($password1) <= 8){
+        $_SESSION['status'] = 'Password must contain at least 8 characters!';
+        $_SESSION['status_icon'] = 'error';
+        header('location:changepass.php');
+    }
+    else{
+        $conn->query("UPDATE users SET password='".password_hash($password1, PASSWORD_DEFAULT)."' WHERE otp='$get_otp'") or die($conn->error);
+        $_SESSION['status'] = 'Successfully updated your password';
+        $_SESSION['status_icon'] = 'success';
+        header('location:index.php');
+    }
+ 
+
+}
 ?>
