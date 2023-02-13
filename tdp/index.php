@@ -129,7 +129,7 @@
                             </div>
                             <div class="card-body text-center">
                                 <div><i class='bx bx-file bx-lg text-secondary'></i></div>
-                                <button class="btn btn-danger w-100" data-toggle="modal" data-target="#uploadTDP">Upload File <span><i class='bx bx-plus' ></i></span> </button>
+                                <button class="btn btn-danger w-100" data-toggle="modal" data-bs-toggle="tooltip" data-bs-placement="top" title="Upload File" data-target="#uploadTDP">Upload File <span><i class='bx bx-plus' ></i></span> </button>
                             </div>  
                         </div>
                     </div>
@@ -207,8 +207,8 @@
                                             <td><?php echo $row['lastname'] ?></td>                          
                                             <td>
                                                 <!-- <button class="btn btn-primary" data-toggle="modal" data-target="#edit"><i class='bx bx-download' ></i></button> -->
-                                                <button class="btn btn-primary" data-toggle="modal" data-target="#edit<?php echo $row['id'] ?>"><i class='bx bx-edit' ></i></button>
-                                                <button class="btn btn-danger"  data-toggle="modal" data-target="#delete<?php echo $row['id'] ?>"><i class='bx bxs-trash' ></i></button>
+                                                <button class="btn btn-primary" data-toggle="modal" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit File" data-target="#edit<?php echo $row['id'] ?>"><i class='bx bx-edit' ></i></button>
+                                                <button class="btn btn-danger"  data-toggle="modal" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete File" data-target="#delete<?php echo $row['id'] ?>"><i class='bx bxs-trash' ></i></button>
                                             </td>
                                         </tr>
                                         <!-- Modal -->

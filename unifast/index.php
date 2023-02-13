@@ -130,7 +130,7 @@
                             </div>
                             <div class="card-body text-center">
                                 <div><i class='bx bx-file bx-lg text-secondary'></i></div>
-                                <button class="btn btn-danger w-100" data-toggle="modal" data-target="#uploadUnifast">Upload File <span><i class='bx bx-plus' ></i></span> </button>
+                                <button class="btn btn-danger w-100" data-toggle="modal" data-bs-toggle="tooltip" data-bs-placement="top" title="Upload File" data-target="#uploadUnifast">Upload File <span><i class='bx bx-plus' ></i></span> </button>
                             </div>  
                         </div>
                     </div>
@@ -202,9 +202,9 @@
                                         <td><?php echo $row['date_upload'] ?></td>  
                                         <td><?php echo $row['downloads'] ?></td>                             
                                         <td>
-                                            <button class="btn btn-primary" data-toggle="modal" data-target="#download<?php echo $row['id'] ?>"><i class='bx bx-download' ></i></button>
-                                            <button class="btn btn-success" data-toggle="modal" data-target="#view<?php echo $row['id'] ?>"><i class='bx bx-folder-open' ></i></button>
-                                            <button class="btn btn-danger"  data-toggle="modal" data-target="#delete<?php echo $row['id'] ?>"><i class='bx bxs-trash' ></i></button>
+                                            <button class="btn btn-primary" data-toggle="modal" data-bs-toggle="tooltip" data-bs-placement="top" title="Download File" data-target="#download<?php echo $row['id'] ?>"><i class='bx bx-download' ></i></button>
+                                            <button class="btn btn-success" data-toggle="modal" data-bs-toggle="tooltip" data-bs-placement="top" title="View File" data-target="#view<?php echo $row['id'] ?>"><i class='bx bx-folder-open' ></i></button>
+                                            <button class="btn btn-danger"  data-toggle="modal" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete File" data-target="#delete<?php echo $row['id'] ?>"><i class='bx bxs-trash' ></i></button>
                                         </td>
                                         </tr>
                                         <!-- Modal -->

@@ -103,6 +103,7 @@ if(isset($_POST["upload_tes"])){
                 $d4 = $emapData[4];
                 $d5 = $emapData[5];
                 
+                
                 $query_code = "SELECT * FROM tes_grantees WHERE firstname='$d4' AND middlename='$d5' AND lastname='$d3'";
                 $result2 = $conn->query($query_code);
     

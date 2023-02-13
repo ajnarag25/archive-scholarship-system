@@ -31,6 +31,9 @@
             <div class="row d-flex justify-content-center align-items-center h-100">
                 <div class="col-12 col-md-8 col-lg-6 col-xl-5">
                     <div class="card shadow-2-strong" style="border-radius: 1rem;">
+                        <div class="text-center main-logo">
+                            <img src="assets/logo.jpg" width="100" alt="">
+                        </div>
                         <div class="card-body p-5 text-center">
                             <form action="process.php" method="POST">
                                 <h3 class="mb-2">Login Account</h3>
@@ -50,9 +53,9 @@
                                         <option value="TDP Focal Person">TDP Focal Person</option>
                                     </select>
                                 </div>
-                                <a href="" data-bs-toggle="modal" data-bs-target="#forgot" class="forgot">Forgot Password?</a>
+                                <a href="" data-bs-toggle="modal" data-bs-toggle="tooltip" data-bs-placement="top" title="Forgot Password" data-bs-target="#forgot" class="forgot">Forgot Password?</a>
                                 <br><br>
-                                <button class="btn btn-success btn-lg btn-block w-100" type="submit" name="login">Login</button>
+                                <button class="btn btn-success btn-lg btn-block w-100" data-bs-toggle="tooltip" data-bs-placement="top" title="Login" type="submit" name="login">Login</button>
                             </form>
                         </div>
                     </div>
