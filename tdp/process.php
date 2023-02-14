@@ -90,20 +90,19 @@ if(isset($_POST["upload_tdp"])){
     $filename=$_FILES["file"]["tmp_name"];
     $ext = strtolower(end(explode('.', $_FILES['file']['name'])));
     date_default_timezone_set('Asia/Manila');
+    $set_date_time = date("Y-m-d h:i:s");
     $set_date = date("Y-m-d");
+    $set_file = 'TDP Grantees'. '_'. $set_date;
 
-    
     if($_FILES["file"]["size"] > 0){
         $file = fopen($filename, "r");
         if($ext === 'csv'){
             while (($emapData = fgetcsv($file, 10000, ",")) !== FALSE){
-                $d1 = $emapData[1];
-                $d2 = $emapData[2];
-                $d3 = $emapData[3];
-                $d4 = $emapData[4];
-                $d5 = $emapData[5];
+                $d1 = $emapData[0];
+                $d2 = $emapData[1];
+                $d3 = $emapData[2];
                 
-                $query_code = "SELECT * FROM tdp_grantees WHERE firstname='$d4' AND middlename='$d5' AND lastname='$d3'";
+                $query_code = "SELECT * FROM tdp_grantees WHERE name='$d3'";
                 $result2 = $conn->query($query_code);
     
                 if ($result2->num_rows > 0) {
@@ -111,17 +110,16 @@ if(isset($_POST["upload_tdp"])){
                     $_SESSION['status_icon'] = 'error';
                     header('location: index.php');
                 } else {
-                    $sql = "INSERT into tdp_grantees (scholarship, award_no, firstname, middlename, lastname, date_upload) 
-                    values('$emapData[1]','$emapData[2]','$emapData[4]','$emapData[5]','$emapData[3]', '$set_date')";
-                    $result = mysqli_query( $conn, $sql );
+                    $sql1 = "INSERT into tdp_grantees (date_time, file, semester, academic_yr, name) 
+                    values('$set_date_time', '$set_file', '$d1', '$d2', '$d3')";
+                    $result1 = mysqli_query( $conn, $sql1 );
                 }
             }
+
             fclose($file);
-            //throws a message if data successfully imported to mysql database from excel file
             $_SESSION['status'] = 'CSV File successfully imported.';
             $_SESSION['status_icon'] = 'success';
             header('location: index.php');
-    
             //close of connection
             mysqli_close($conn); 
         }else{
@@ -138,18 +136,17 @@ if(isset($_POST["upload_tdp"])){
 // Update Grantees Credentials
 if (isset($_POST['update_tdp'])) {
     $id = $_POST['id_update_tdp'];
-    $scholar = $_POST['scholarship'];
-    $award = $_POST['award_no'];
-    $fname = $_POST['fname'];
-    $mname = $_POST['mname'];
-    $lname = $_POST['lname'];
+    $file = $_POST['file'];
+    $semester = $_POST['semester'];
+    $academic_yr = $_POST['academic_yr'];
+    $name = $_POST['name'];
 
-    $sql = "SELECT * FROM tdp_grantees WHERE scholarship='$scholar' AND award_no='$award' AND firstname='$fname' AND middlename='$mname' AND lastname='$lname' AND id='$id'";
+    $sql = "SELECT * FROM tdp_grantees WHERE file='$file' AND semester='$semester' AND academic_yr='$academic_yr' AND name='$name' AND id='$id'";
     $result = mysqli_query($conn, $sql);
 
     if (!$result->num_rows > 0) {
-        $conn->query("UPDATE tdp_grantees SET scholarship='$scholar',award_no='$award',firstname='$fname',middlename='$mname',lastname='$lname' WHERE id='$id'") or die($conn->error);
-        $_SESSION['status'] = 'Successfully Updated the Account';
+        $conn->query("UPDATE tdp_grantees SET file='$file', semester='$semester', academic_yr='$academic_yr', name='$name' WHERE id='$id'") or die($conn->error);
+        $_SESSION['status'] = 'Successfully Updated';
         $_SESSION['status_icon'] = 'success';
         header('location:index.php');
     }else{

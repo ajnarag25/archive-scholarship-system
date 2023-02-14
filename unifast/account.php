@@ -153,7 +153,7 @@
                                         </div>
                                     </div>
                                    
-                                    <button type="button" class="btn btn-danger w-100" data-toggle="modal" data-target="#edit_profile<?php echo $row['id'] ?>">Edit Profile</button>
+                                    <button type="button" class="btn btn-danger w-100" data-toggle="modal" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Profile" data-target="#edit_profile<?php echo $row['id'] ?>">Edit Profile</button>
                             </div>
                         </div>
                     </div>
@@ -206,7 +206,7 @@
                                         <form action="process.php" method="POST" enctype="multipart/form-data">
                                             <input type="file" class="form-control" name="pic" required>
                                             <input type="hidden" value="<?php echo $row['id'] ?>" name="id">
-                                            <button type="submit" name="change_pic_unifast" class="btn btn-danger">Update Profile Picture</button>
+                                            <button type="submit" name="change_pic_unifast" class="btn btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Update Profile Picture">Update Profile Picture</button>
                                         </form>
                                     <?php } ?>
                                     </a>
@@ -247,7 +247,7 @@
                                         $result = mysqli_query($conn, $query);
                                         while ($row = mysqli_fetch_array($result)) {
                                     ?>
-                                    <button type="button" class="btn btn-danger w-100" data-toggle="modal" data-target="#changepass<?php echo $row['id'] ?>">Change Password</button>
+                                    <button type="button" class="btn btn-danger w-100" data-toggle="modal" data-bs-toggle="tooltip" data-bs-placement="top" title="Change Password" data-target="#changepass<?php echo $row['id'] ?>">Change Password</button>
                             </div>
                         </div>
                     </div>

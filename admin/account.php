@@ -179,7 +179,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <button type="button" class="btn btn-danger w-100" data-toggle="modal" data-target="#edit_profile">Edit Profile</button>
+                                    <button type="button" class="btn btn-danger w-100" data-toggle="modal" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Profile" data-target="#edit_profile">Edit Profile</button>
                             </div>
                         </div>
                     </div>
@@ -229,7 +229,7 @@
                                         <h5 class="title">System Administrator</h5>
                                         <form action="process.php" method="POST" enctype="multipart/form-data">
                                             <input type="file" class="form-control" name="pic" required>
-                                            <button type="submit" name="change_pic" class="btn btn-danger">Update Profile Picture</button>
+                                            <button type="submit" name="change_pic" class="btn btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Update Profile Picture">Update Profile Picture</button>
                                         </form>
                                     </a>
                                 </div>
@@ -263,7 +263,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <button type="button" class="btn btn-danger w-100" data-toggle="modal" data-target="#changepass">Change Password</button>
+                                    <button type="button" class="btn btn-danger w-100" data-toggle="modal" data-bs-toggle="tooltip" data-bs-placement="top" title="Change Password" data-target="#changepass">Change Password</button>
                             </div>
                         </div>
                     </div>

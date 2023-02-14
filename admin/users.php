@@ -149,7 +149,7 @@
                             </div>
                             <div class="card-body text-center">
                                 <div><i class='bx bxs-user-plus bx-lg text-secondary'></i></div>
-                                <button class="btn btn-danger w-100" data-toggle="modal" data-target="#createAccount">Create Account <span><i class='bx bx-plus' ></i></span> </button>
+                                <button class="btn btn-danger w-100" data-toggle="modal" data-bs-toggle="tooltip" data-bs-placement="top" title="Create Account" data-target="#createAccount">Create Account <span><i class='bx bx-plus' ></i></span> </button>
                                 <br><br>
                                 <p>Create an account for UNIFAST Person, TES Focal Person, and TDP Focal Person.</p>
                             </div>  
@@ -216,12 +216,6 @@
                                         <h4 class="card-title">Users Account</h4>
                                     </div>
                                     <div class="p-2 flex-shrink-1 bd-highlight">              
-                                    <p class="text-center">
-                                    Legend: 
-                                    </p>
-                                    <i class='bx bxs-edit text-primary' ></i> - Edit Account, <br>
-                                    <i class='bx bx-reset text-success' ></i> - Edit Account Status, <br>
-                                    <i class='bx bxs-trash text-danger' ></i> - Delete Account
                                 </div>
                             </div>
                         </div>
@@ -259,9 +253,9 @@
                                             </td>
                                     
                                             <td>
-                                                <button class="btn btn-primary" data-toggle="modal" data-target="#edit<?php echo $row['id'] ?>"><i class='bx bxs-edit' ></i></button>
-                                                <button class="btn btn-success" data-toggle="modal" data-target="#stat<?php echo $row['id'] ?>"><i class='bx bx-reset' ></i></button>
-                                                <button class="btn btn-danger"  data-toggle="modal" data-target="#delete<?php echo $row['id'] ?>"><i class='bx bxs-trash' ></i></button>
+                                                <button class="btn btn-primary" data-toggle="modal" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Account" data-target="#edit<?php echo $row['id'] ?>"><i class='bx bxs-edit' ></i></button>
+                                                <button class="btn btn-success" data-toggle="modal" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Account Status" data-target="#stat<?php echo $row['id'] ?>"><i class='bx bx-reset' ></i></button>
+                                                <button class="btn btn-danger"  data-toggle="modal" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete Account" data-target="#delete<?php echo $row['id'] ?>"><i class='bx bxs-trash' ></i></button>
                                             </td>
                                 
                                         </tr>

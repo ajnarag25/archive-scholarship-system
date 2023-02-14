@@ -170,12 +170,6 @@
                                         <h4 class="card-title">File Records</h4>
                                     </div>
                                     <div class="p-2 flex-shrink-1 bd-highlight">              
-                                    <p class="text-center">
-                                    Legend: 
-                                    </p>
-                                    <i class='bx bx-download text-primary' ></i> - Download File, <br>
-                                    <i class='bx bx-folder-open text-success' ></i> - View File, <br>
-                                    <i class='bx bxs-trash text-danger' ></i> - Delete File
                                 </div>
                             </div>
                         </div>
