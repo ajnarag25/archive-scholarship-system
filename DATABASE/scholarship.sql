@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 06, 2023 at 04:56 PM
+-- Generation Time: Feb 14, 2023 at 12:23 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -51,12 +51,11 @@ INSERT INTO `admin` (`id`, `name`, `email`, `password`, `address`, `image`) VALU
 
 CREATE TABLE `tdp_grantees` (
   `id` int(11) NOT NULL,
-  `scholarship` varchar(255) NOT NULL,
-  `award_no` varchar(255) NOT NULL,
-  `firstname` varchar(255) NOT NULL,
-  `middlename` varchar(255) NOT NULL,
-  `lastname` varchar(255) NOT NULL,
-  `date_upload` date NOT NULL
+  `date_time` datetime NOT NULL,
+  `file` varchar(255) NOT NULL,
+  `semester` varchar(255) NOT NULL,
+  `academic_yr` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -67,12 +66,11 @@ CREATE TABLE `tdp_grantees` (
 
 CREATE TABLE `tes_grantees` (
   `id` int(11) NOT NULL,
-  `scholarship` varchar(255) NOT NULL,
-  `award_no` varchar(255) NOT NULL,
-  `firstname` varchar(255) NOT NULL,
-  `middlename` varchar(255) NOT NULL,
-  `lastname` varchar(255) NOT NULL,
-  `date_upload` date NOT NULL
+  `date_time` datetime NOT NULL,
+  `file` varchar(255) NOT NULL,
+  `semester` varchar(255) NOT NULL,
+  `academic_yr` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
