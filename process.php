@@ -27,7 +27,7 @@ if (isset($_POST['login'])) {
             header('location:index.php');
         }
     }elseif ($getData_users != null){
-        if ($getData_users['user'] == 'UNIFAST Person'){
+        if ($getData_users['user'] == 'UNIFAST Person' AND $getData_users['account_stat'] == 'active'){
             if (password_verify($pass, $getData_users['password'])){
                 $_SESSION['user_data_unifast'] = $getData_users;
                 unset($_SESSION['status']);
@@ -37,7 +37,7 @@ if (isset($_POST['login'])) {
                 $_SESSION['status_icon'] = 'error';
                 header('location:index.php');
             }
-        }elseif ($getData_users['user'] == 'TES Focal Person'){
+        }elseif ($getData_users['user'] == 'TES Focal Person' AND $getData_users['account_stat'] == 'active'){
             if (password_verify($pass, $getData_users['password'])){
                 $_SESSION['user_data_tes'] = $getData_users;
                 unset($_SESSION['status']);
@@ -47,7 +47,7 @@ if (isset($_POST['login'])) {
                 $_SESSION['status_icon'] = 'error';
                 header('location:index.php');
             }
-        }elseif ($getData_users['user'] == 'TDP Focal Person'){
+        }elseif ($getData_users['user'] == 'TDP Focal Person' AND $getData_users['account_stat'] == 'active'){
             if (password_verify($pass, $getData_users['password'])){
                 $_SESSION['user_data_tdp'] = $getData_users;
                 unset($_SESSION['status']);
@@ -57,10 +57,14 @@ if (isset($_POST['login'])) {
                 $_SESSION['status_icon'] = 'error';
                 header('location:index.php');
             }
+        }else{
+            $_SESSION['status'] = 'Your account has been disabled!';
+            $_SESSION['status_icon'] = 'error';
+            header('location:index.php');
         }
       
     }else{
-        $_SESSION['status'] = 'An Error Occured!';
+        $_SESSION['status'] = 'Invalid Credentials';
         $_SESSION['status_icon'] = 'error';
         header('location:index.php');
     }

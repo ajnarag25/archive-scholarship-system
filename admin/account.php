@@ -59,7 +59,13 @@
                     <li>
                         <a href="users.php">
                             <i class='bx bxs-user-detail' ></i>
-                            <p>Create / Manage / View</p>
+                            <p>Manage Account</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="archive_account.php">
+                            <i class='bx bx-archive-in'></i>
+                            <p>Archived Accounts</p>
                         </a>
                     </li>
                     <li class="active">

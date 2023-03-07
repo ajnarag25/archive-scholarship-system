@@ -60,7 +60,13 @@
                     <li class="active">
                         <a href="users.php">
                             <i class='bx bxs-user-detail' ></i>
-                            <p>Create / Manage / View</p>
+                            <p>Manage Account</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="archive_account.php">
+                            <i class='bx bx-archive-in'></i>
+                            <p>Archived Accounts</p>
                         </a>
                     </li>
                     <li>
@@ -111,7 +117,7 @@
                                 <span class="navbar-toggler-bar bar3"></span>
                             </button>
                         </div>
-                        <a class="navbar-brand" href="users.php">Create / Manage / View Accounts</a>
+                        <a class="navbar-brand" href="users.php">Manage Accounts</a>
                     </div>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-bar navbar-kebab"></span>
@@ -258,7 +264,7 @@
                                             <td>
                                                 <button class="btn btn-primary" data-toggle="modal" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Account" data-target="#edit<?php echo $row['id'] ?>"><i class='bx bxs-edit' ></i></button>
                                                 <button class="btn btn-success" data-toggle="modal" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Account Status" data-target="#stat<?php echo $row['id'] ?>"><i class='bx bx-reset' ></i></button>
-                                                <button class="btn btn-danger"  data-toggle="modal" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete Account" data-target="#delete<?php echo $row['id'] ?>"><i class='bx bxs-trash' ></i></button>
+                                                <button class="btn btn-danger"  data-toggle="modal" data-bs-toggle="tooltip" data-bs-placement="top" title="Archive Account" data-target="#archive<?php echo $row['id'] ?>"><i class='bx bx-archive-in'></i></button>
                                             </td>
                                 
                                         </tr>
@@ -325,7 +331,7 @@
                                                                     <label for="">Account Status</label>
                                                                     <select name="stat" class="form-control" id="" required>
                                                                         <option value="" selected disabled>--Select New Account Status--</option>
-                                                                        <option value="active">Enable</option>
+                                                                        <option value="active">Activate</option>
                                                                         <option value="disabled">Disable</option>   
                                                                     </select>
                                                                 </div>
@@ -342,12 +348,12 @@
                                             </div>
 
 
-                                            <!-- Modal Delete Account-->
-                                            <div class="modal fade" id="delete<?php echo $row['id'] ?>" tabindex="-1" role="dialog"  aria-hidden="true">
+                                            <!-- Modal Archive Account-->
+                                            <div class="modal fade" id="archive<?php echo $row['id'] ?>" tabindex="-1" role="dialog"  aria-hidden="true">
                                                 <div class="modal-dialog" role="document">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
-                                                        <h5 class="modal-title">Delete Account</h5>
+                                                        <h5 class="modal-title">Archive Account</h5>
                                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                             <span aria-hidden="true">&times;</span>
                                                         </button>
@@ -355,15 +361,22 @@
                                                         <div class="modal-body">
                                                             <form action="process.php" method="POST">
                                                                 <br>
-                                                                <h6 class="text-center">Delete Account of : <?php echo $row['name'] ?></h6>
+                                                                <h6 class="text-center">Archiving Account of : <?php echo $row['name'] ?></h6>
                                                                 <br>
-                                                                <p class="text-center"><i class='bx bxs-message-alt-error bx-flashing' style="color:red"></i> Deleting this account is irreversible!</p>
+                                                                <p class="text-center"><i class='bx bxs-message-alt-error bx-flashing' style="color:red"></i>Are you sure to archive this account?</p>
                                                                 <br>
                                                             </div>
                                                             <div class="modal-footer">
-                                                                <input type="hidden" value="<?php echo $row['id'] ?>" name="id_del">
+                                                                <input type="hidden" value="<?php echo $row['id'] ?>" name="id_user">
+                                                                <input type="hidden" value="<?php echo $row['name'] ?>" name="users_name">
+                                                                <input type="hidden" value="<?php echo $row['email'] ?>" name="users_email">
+                                                                <input type="hidden" value="<?php echo $row['password'] ?>" name="users_password">
+                                                                <input type="hidden" value="<?php echo $row['image'] ?>" name="users_image">
+                                                                <input type="hidden" value="<?php echo $row['user'] ?>" name="users_account">
+                                                                <input type="hidden" value="<?php echo $row['otp'] ?>" name="users_otp">
+                                                                <input type="hidden" value="<?php echo $row['account_stat'] ?>" name="users_stat">
                                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                <button type="submit" class="btn btn-danger" name="delete">Delete Account</button>
+                                                                <button type="submit" class="btn btn-danger" name="archive_user">Archive Account</button>
                                                             </div>
                                                         </form>
                                                     </div>
