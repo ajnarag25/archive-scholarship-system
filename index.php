@@ -44,15 +44,6 @@
                                 <div class="form-outline mb-4">
                                     <input type="password" placeholder="Enter Password" name="password" class="form-control" required/>
                                 </div>
-                                <div class="form-outline mb-4">
-                                    <select class="form-select" name="user"  required>
-                                        <option value="" selected disabled>Login as</option>
-                                        <option value="System Administrator">System Administrator</option>
-                                        <option value="UNIFAST Person">UNIFAST Person</option>
-                                        <option value="TES Focal Person">TES Focal Person</option>
-                                        <option value="TDP Focal Person">TDP Focal Person</option>
-                                    </select>
-                                </div>
                                 <a href="" data-bs-toggle="modal" data-bs-toggle="tooltip" data-bs-placement="top" title="Forgot Password" data-bs-target="#forgot" class="forgot">Forgot Password?</a>
                                 <br><br>
                                 <button class="btn btn-success btn-lg btn-block w-100" data-bs-toggle="tooltip" data-bs-placement="top" title="Login" type="submit" name="login">Login</button>

@@ -168,7 +168,10 @@
                             </div>
                             <div class="modal-body">
                                 <form action="process.php" method="POST">
-                                    <h6 class="text-center">Please Fill up the necessary information needed</h6>
+                                    <div class="text-center">
+                                        <h6>Please Fill up the necessary information needed</h6>
+                                        <label for=""><b>Note:</b> Email addresses can only be registered once.</label>
+                                    </div>
                                     <br>
                                     <div class="form-outline mb-4">
                                     <label for="">Account Type</label>

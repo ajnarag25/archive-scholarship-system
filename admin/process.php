@@ -16,7 +16,7 @@ if (isset($_POST['create'])) {
     $pass1 = $_POST['password1'];
     $pass2 = $_POST['password2'];
 
-    $sql = "SELECT * FROM users WHERE name='$name' AND email='$email' AND user='$user_type'";
+    $sql = "SELECT * FROM users WHERE name='$name' AND email='$email'";
     $result = mysqli_query($conn, $sql);
 
     if ($pass1 != $pass2){
@@ -35,7 +35,7 @@ if (isset($_POST['create'])) {
             $_SESSION['status_icon'] = 'success';
             header('location:users.php');
         }else{
-            $_SESSION['status'] = 'Account Already Exists';
+            $_SESSION['status'] = 'Email Account Already Exists';
             $_SESSION['status_icon'] = 'warning';
             header('location:users.php');
         }
