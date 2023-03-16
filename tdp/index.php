@@ -129,7 +129,7 @@
                             </div>
                             <div class="card-body text-center">
                                 <div><i class='bx bx-file bx-lg text-secondary'></i></div>
-                                <button class="btn btn-danger w-100" data-toggle="modal" data-bs-toggle="tooltip" data-bs-placement="top" title="Upload File" data-target="#uploadTDP">Upload File <span><i class='bx bx-plus' ></i></span> </button>
+                                <button class="btn btn-success w-100" data-toggle="modal" data-bs-toggle="tooltip" data-bs-placement="top" title="Upload File" data-target="#uploadTDP">Upload File <span><i class='bx bx-plus' ></i></span> </button>
                             </div>  
                         </div>
                     </div>
@@ -153,7 +153,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-danger" name="upload_tdp">Upload File</button>
+                                    <button type="submit" class="btn btn-success" name="upload_tdp">Upload File</button>
                                 </div>
                             </form>
                         </div>
@@ -169,7 +169,7 @@
 
                                     </div>
                                     <div class="p-2 flex-shrink-1 bd-highlight">              
-                                    <button class="btn btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Make Report" id="make_report"><i class='bx bx-download' ></i> Make Report</button>
+                                    <button class="btn btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Make Report" id="make_report"><i class='bx bx-download' ></i> Make Report</button>
                                 </div>
                             </div>
                         </div>
@@ -178,6 +178,7 @@
                             <div class="table-responsive">
                                 <table class="table table-hover" id="accountTable">
                                     <thead class="text-danger">
+                                    <th>#</th>
                                     <th>Date Upload</th>
                                     <th>File Name</th>
                                     <th>Semester</th>
@@ -192,6 +193,7 @@
                                         while ($row = mysqli_fetch_array($result)) {
                                     ?>
                                         <tr>
+                                            <td><?php echo $row['id'] ?></td>
                                             <td><?php echo $row['date_time'] ?></td>
                                             <td><?php echo $row['file'] ?></td>
                                             <td><?php echo $row['semester'] ?></td>      
