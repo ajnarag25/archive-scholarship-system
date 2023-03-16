@@ -12,12 +12,12 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <title>UNIFAST Person - Account Records</title>
+    <title>UNIFAST Focal Person - Account Records</title>
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css" rel="stylesheet">
     <link href="css/bootstrap.min.css" rel="stylesheet" />
-    <link href="css/dashboard.css?v=1.0.1" rel="stylesheet" />
+    <link href="css/dashboard.css" rel="stylesheet" />
     <link href="demo/demo.css" rel="stylesheet" />
     <link href="../assets/logo.jpg" rel="icon">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.css">
@@ -32,7 +32,7 @@
                     <img src="../assets/logo.jpg" alt="">
                 </a>
                 <a href="" class="simple-text logo-normal">
-                    UNIFAST Person
+                    UNIFAST Focal Person
                 </a>
             </div>
             <div class="sidebar-wrapper">
@@ -43,7 +43,12 @@
                             <p>UNIFAST Records</p>
                         </a>
                     </li>
-
+                    <li>
+                        <a href="archive_records.php">
+                            <i class='bx bx-archive-in'></i>
+                            <p>Archive Records</p>
+                        </a>
+                    </li>
                     <li>
                         <a href="account.php">
                             <i class='bx bxs-cog'></i>
@@ -130,7 +135,7 @@
                             </div>
                             <div class="card-body text-center">
                                 <div><i class='bx bx-file bx-lg text-secondary'></i></div>
-                                <button class="btn btn-danger w-100" data-toggle="modal" data-bs-toggle="tooltip" data-bs-placement="top" title="Upload File" data-target="#uploadUnifast">Upload File <span><i class='bx bx-plus' ></i></span> </button>
+                                <button class="btn btn-success w-100" data-toggle="modal" data-bs-toggle="tooltip" data-bs-placement="top" title="Upload File" data-target="#uploadUnifast">Upload File <span><i class='bx bx-plus' ></i></span> </button>
                             </div>  
                         </div>
                     </div>
@@ -155,7 +160,7 @@
                                 <div class="modal-footer">
                                     <input type="hidden" name="email" value="<?php echo $_SESSION['user_data_unifast']['email'] ?>">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-danger" name="upload_unifast">Upload File</button>
+                                    <button type="submit" class="btn btn-success" name="upload_unifast">Upload File</button>
                                 </div>
                             </form>
                         </div>
@@ -180,7 +185,7 @@
                                     <thead class="text-danger">
                                     <th>File Name</th>
                                     <th>Date Uploaded</th>
-                                    <th>No. of Downloads</th>
+                                    <!-- <th>No. of Downloads</th> -->
                                     <th>Action</th>
                                     </thead>
                                     <tbody>
@@ -194,11 +199,11 @@
                                         <tr>
                                         <td><?php echo $row['name'] ?></td>
                                         <td><?php echo $row['date_upload'] ?></td>  
-                                        <td><?php echo $row['downloads'] ?></td>                             
+                                        <!-- <td><?php echo $row['downloads'] ?></td>                              -->
                                         <td>
-                                            <button class="btn btn-primary" data-toggle="modal" data-bs-toggle="tooltip" data-bs-placement="top" title="Download File" data-target="#download<?php echo $row['id'] ?>"><i class='bx bx-download' ></i></button>
+                                            <button class="btn btn-warning" data-toggle="modal" data-bs-toggle="tooltip" data-bs-placement="top" title="Download File" data-target="#download<?php echo $row['id'] ?>"><i class='bx bx-download' ></i></button>
                                             <button class="btn btn-success" data-toggle="modal" data-bs-toggle="tooltip" data-bs-placement="top" title="View File" data-target="#view<?php echo $row['id'] ?>"><i class='bx bx-folder-open' ></i></button>
-                                            <button class="btn btn-danger"  data-toggle="modal" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete File" data-target="#delete<?php echo $row['id'] ?>"><i class='bx bxs-trash' ></i></button>
+                                            <button class="btn btn-primary"  data-toggle="modal" data-bs-toggle="tooltip" data-bs-placement="top" title="Archive Record" data-target="#archive<?php echo $row['id'] ?>"> <i class='bx bx-archive-in'></i></button>
                                         </td>
                                         </tr>
                                         <!-- Modal -->
@@ -248,27 +253,36 @@
                                             </div>
                                         </div>
 
-                                        <!-- Modal -->
-                                        <div class="modal fade" id="delete<?php echo $row['id'] ?>" tabindex="-1" role="dialog" aria-hidden="true">
+                          
+                                        <!-- Modal Archive Record-->
+                                        <div class="modal fade" id="archive<?php echo $row['id'] ?>" tabindex="-1" role="dialog"  aria-hidden="true">
                                             <div class="modal-dialog" role="document">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h5 class="modal-title" id="exampleModalLabel">Delete File</h5>
-                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <h5 class="modal-title">Archive Unifast Focal Person Records</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
-                                                        </button>
+                                                    </button>
                                                     </div>
-                                                    <div class="modal-body text-center">
-                                                        <h6>Are you sure you want delete this file?</h6>
-                                                        <p>File to be deleted: <?php echo $row['name'] ?></p>
-                                                    </div>
-                                                    <div class="modal-footer">
+                                                    <div class="modal-body">
                                                         <form action="process.php" method="POST">
-                                                            <input type="hidden" name="id_delete_unifast" value="<?php echo $row['id'] ?>">
+                                                            <br>
+                                                            <h6 class="text-center">Archiving Record: <?php echo $row['name'] ?></h6>
+                                                            <br>
+                                                            <p class="text-center"><i class='bx bxs-message-alt-error bx-flashing' style="color:red"></i>Are you sure to archive this file?</p>
+                                                            <br>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <input type="hidden" value="<?php echo $row['id'] ?>" name="id_user">
+                                                            <input type="hidden" value="<?php echo $row['name'] ?>" name="users_name">
+                                                            <input type="hidden" value="<?php echo $row['user_email'] ?>" name="users_email">
+                                                            <input type="hidden" value="<?php echo $row['date_upload'] ?>" name="users_date">
+                                                            <input type="hidden" value="<?php echo $row['size'] ?>" name="users_size">
+                                                            <input type="hidden" value="<?php echo $row['downloads'] ?>" name="users_downloads">
                                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                            <button type="submit" class="btn btn-danger" name="delete_unifast">Delete</button>
-                                                        </form>
-                                                    </div>
+                                                            <button type="submit" class="btn btn-primary" name="archive_records">Archive Record</button>
+                                                        </div>
+                                                    </form>
                                                 </div>
                                             </div>
                                         </div>

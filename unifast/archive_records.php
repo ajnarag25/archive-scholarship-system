@@ -1,7 +1,7 @@
 <?php 
   include('../connection.php');
   session_start();
-  if (!isset($_SESSION['admin_data'])) {
+  if (!isset($_SESSION['user_data_unifast'])) {
     header("Location: ../index.php");
     }
 ?>
@@ -19,14 +19,6 @@
     <link href="css/bootstrap.min.css" rel="stylesheet" />
     <link href="css/dashboard.css" rel="stylesheet" />
     <link href="demo/demo.css" rel="stylesheet" />
-    <?php 
-        $check_acc = $_SESSION['admin_data']['email'];
-        $query = "SELECT * FROM admin WHERE email='$check_acc'";
-        $result = mysqli_query($conn, $query);
-        while ($row = mysqli_fetch_array($result)) {
-    ?>
-        <link href="<?php echo $row['image'] ?>" rel="icon">
-    <?php } ?>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.css">
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 </head>
@@ -36,37 +28,24 @@
         <div class="sidebar" data-color="red">
             <div class="logo">
                 <a href="" class="simple-text logo-mini">
-                <?php 
-                    $check_acc = $_SESSION['admin_data']['email'];
-                    $query = "SELECT * FROM admin WHERE email='$check_acc'";
-                    $result = mysqli_query($conn, $query);
-                    while ($row = mysqli_fetch_array($result)) {
-                ?>
-                    <img src="<?php echo $row['image'] ?>" alt="...">
-                <?php } ?>
+                    <img src="../assets/logo.jpg" alt="...">
                 </a>
                 <a href="" class="simple-text logo-normal">
-                    System Administrator
+                    UNIFAST Focal Person
                 </a>
             </div>
             <div class="sidebar-wrapper">
                 <ul class="nav">
                     <li>
                         <a href="index.php">
-                            <i class='bx bxs-dashboard'></i>
-                            <p>Dashboard</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="users.php">
-                            <i class='bx bxs-user-detail' ></i>
-                            <p>Manage Account</p>
+                            <i class='bx bx-file' ></i>
+                            <p>UNIFAST Records</p>
                         </a>
                     </li>
                     <li class="active">
-                        <a href="archive_account.php">
+                        <a href="archive_records.php">
                             <i class='bx bx-archive-in'></i>
-                            <p>Archived Accounts</p>
+                            <p>Archive Records</p>
                         </a>
                     </li>
                     <li>
@@ -152,8 +131,8 @@
                             <div class="card-header">
                                 <div class="d-flex bd-highlight">
                                     <div class="p-2 w-100 bd-highlight">
-                                        <h5 class="card-category">List of Archived Accounts</h5>
-                                        <h4 class="card-title">Archived Account</h4>
+                                        <h5 class="card-category">List of Archived Records</h5>
+                                        <h4 class="card-title">Archived Records</h4>
                                     </div>
                                     <div class="p-2 flex-shrink-1 bd-highlight">              
                                 </div>
@@ -165,25 +144,23 @@
                                 <table class="table table-hover" id="accountTable">
                                     <thead class="text-danger">
                                     <th>Date & Time Archived</th>
-                                    <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Account Type</th>
+                                    <th>Filename</th>
+                                    <th>Date Upload</th>
                                     <th>Action</th>
                                     </thead>
                                     <tbody>
                                         <?php 
-                                            $query = "SELECT * FROM archived_users";
+                                            $query = "SELECT * FROM archived_unifast";
                                             $result = mysqli_query($conn, $query);
                                             $check_row = mysqli_num_rows($result);
                                             while ($row = mysqli_fetch_array($result)) {
                                         ?>
                                         <tr>
                                             <td><b><?php echo $row['date_time'] ?></b></td>
-                                            <td><?php echo $row['name'] ?></td>
-                                            <td><?php echo $row['email'] ?></td>
-                                            <td><?php echo $row['user'] ?></td>
+                                            <td><?php echo $row['file'] ?></td>
+                                            <td><?php echo $row['date_upload'] ?></td>
                                             <td>
-                                                <button class="btn btn-warning"  data-toggle="modal" data-bs-toggle="tooltip" data-bs-placement="top" title="Unarchive Account" data-target="#archive<?php echo $row['id'] ?>"><i class='bx bx-archive-out'></i></button>
+                                                <button class="btn btn-primary"  data-toggle="modal" data-bs-toggle="tooltip" data-bs-placement="top" title="Unarchive Account" data-target="#archive<?php echo $row['id'] ?>"><i class='bx bx-archive-out'></i></button>
                                             </td>
                                 
                                         </tr>
@@ -193,7 +170,7 @@
                                                 <div class="modal-dialog" role="document">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
-                                                        <h5 class="modal-title">Unarchive Account</h5>
+                                                        <h5 class="modal-title">Unarchive File Record</h5>
                                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                             <span aria-hidden="true">&times;</span>
                                                         </button>
@@ -201,22 +178,20 @@
                                                         <div class="modal-body">
                                                             <form action="process.php" method="POST">
                                                                 <br>
-                                                                <h6 class="text-center">Unarchiving Account of : <?php echo $row['name'] ?></h6>
+                                                                <h6 class="text-center">Unarchiving Record : <?php echo $row['file'] ?></h6>
                                                                 <br>
-                                                                <p class="text-center"><i class='bx bxs-message-alt-error bx-flashing' style="color:green"></i>Are you sure to unarchive this account?</p>
+                                                                <p class="text-center"><i class='bx bxs-message-alt-error bx-flashing' style="color:green"></i>Are you sure to unarchive this file?</p>
                                                                 <br>
                                                             </div>
                                                             <div class="modal-footer">
                                                                 <input type="hidden" value="<?php echo $row['id'] ?>" name="id_user">
-                                                                <input type="hidden" value="<?php echo $row['name'] ?>" name="users_name">
+                                                                <input type="hidden" value="<?php echo $row['file'] ?>" name="users_name">
                                                                 <input type="hidden" value="<?php echo $row['email'] ?>" name="users_email">
-                                                                <input type="hidden" value="<?php echo $row['password'] ?>" name="users_password">
-                                                                <input type="hidden" value="<?php echo $row['image'] ?>" name="users_image">
-                                                                <input type="hidden" value="<?php echo $row['user'] ?>" name="users_account">
-                                                                <input type="hidden" value="<?php echo $row['otp'] ?>" name="users_otp">
-                                                                <input type="hidden" value="<?php echo $row['account_stat'] ?>" name="users_stat">
+                                                                <input type="hidden" value="<?php echo $row['date_upload'] ?>" name="users_date">
+                                                                <input type="hidden" value="<?php echo $row['size'] ?>" name="users_size">
+                                                                <input type="hidden" value="<?php echo $row['downloads'] ?>" name="users_downloads">
                                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                <button type="submit" class="btn btn-warning" name="unarchive_user">Unarchive Account</button>
+                                                                <button type="submit" class="btn btn-primary" name="unarchive_record">Unarchive Record</button>
                                                             </div>
                                                         </form>
                                                     </div>

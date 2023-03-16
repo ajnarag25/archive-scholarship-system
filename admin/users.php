@@ -17,7 +17,7 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css" rel="stylesheet">
     <link href="css/bootstrap.min.css" rel="stylesheet" />
-    <link href="css/dashboard.css?v=1.0.1" rel="stylesheet" />
+    <link href="css/dashboard.css" rel="stylesheet" />
     <link href="demo/demo.css" rel="stylesheet" />
     <?php 
         $check_acc = $_SESSION['admin_data']['email'];

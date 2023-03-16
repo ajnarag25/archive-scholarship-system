@@ -12,7 +12,7 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <title>UNIFAST Person - Account Settings</title>
+    <title>UNIFAST Focal Person - Account Settings</title>
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css" rel="stylesheet">
@@ -31,7 +31,7 @@
                     <img src="../assets/logo.jpg" alt="...">
                 </a>
                 <a href="" class="simple-text logo-normal">
-                    UNIFAST Person
+                    UNIFAST Focal Person
                 </a>
             </div>
             <div class="sidebar-wrapper">
@@ -42,7 +42,12 @@
                             <p>UNIFAST Records</p>
                         </a>
                     </li>
-
+                    <li>
+                        <a href="archive_records.php">
+                            <i class='bx bx-archive-in'></i>
+                            <p>Archive Records</p>
+                        </a>
+                    </li>
                     <li class="active">
                         <a href="account.php">
                             <i class='bx bxs-cog'></i>

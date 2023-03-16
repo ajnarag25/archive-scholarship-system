@@ -180,4 +180,54 @@ if (isset($_POST['delete_unifast'])) {
     }
 }
 
+// Archive Records
+if (isset($_POST['archive_records'])) {
+
+    $id_record = $_POST['id_user'];
+    $name_record = $_POST['users_name'];
+    $email_record = $_POST['users_email'];
+    $date_record = $_POST['users_date'];
+    $size_record = $_POST['users_size'];
+    $downloads_record = $_POST['users_downloads'];
+
+    if($id_record != null){
+        $conn->query("INSERT INTO archived_unifast (email, file, date_upload, size, downloads) 
+        VALUES('$email_record','$name_record','$date_record','$size_record','$downloads_record')") or die($conn->error);
+        $conn->query("DELETE FROM unifast_files WHERE id='$id_record';") or die($conn->error);
+        $_SESSION['status'] = 'Successfully Archived the File Record';
+        $_SESSION['status_icon'] = 'success';
+        header('location:archive_records.php');
+    }else{
+        $_SESSION['status'] = 'An Error Occured!';
+        $_SESSION['status_icon'] = 'error';
+        header('location:index.php');
+    }
+    
+}
+
+// Unarchive Records
+if (isset($_POST['unarchive_record'])) {
+    $id_record = $_POST['id_user'];
+    $name_record = $_POST['users_name'];
+    $email_record = $_POST['users_email'];
+    $date_record = $_POST['users_date'];
+    $size_record = $_POST['users_size'];
+    $downloads_record = $_POST['users_downloads'];
+
+    if($id_record != null){
+        $conn->query("INSERT INTO unifast_files (user_email, name, date_upload, size, downloads) 
+        VALUES('$email_record','$name_record','$date_record','$size_record','$downloads_record')") or die($conn->error);
+        $conn->query("DELETE FROM archived_unifast WHERE id='$id_record';") or die($conn->error);
+        $_SESSION['status'] = 'Successfully Unarchived the File Record';
+        $_SESSION['status_icon'] = 'success';
+        header('location:index.php');
+    }else{
+        $_SESSION['status'] = 'An Error Occured!';
+        $_SESSION['status_icon'] = 'error';
+        header('location:archive_records.php');
+    }
+    
+}
+
+
 ?>

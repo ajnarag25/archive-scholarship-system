@@ -16,7 +16,7 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css" rel="stylesheet">
     <link href="css/bootstrap.min.css" rel="stylesheet" />
-    <link href="css/dashboard.css?v=1.0.1" rel="stylesheet" />
+    <link href="css/dashboard.css" rel="stylesheet" />
     <link href="demo/demo.css" rel="stylesheet" />
     <?php 
         $check_acc = $_SESSION['admin_data']['email'];
@@ -141,6 +141,9 @@
                         </ul>
                     </div>
                 </div>
+           
+            
+                    
             </nav>
             <!-- End Navbar -->
             <div class="panel-header panel-header-sm">
@@ -202,6 +205,52 @@
                         </div>
                     </div>
                 </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="d-flex bd-highlight">
+                                <div class="p-2 w-100 bd-highlight">
+                                    <h4 class="card-title">List of Users Account</h4>
+                                </div>
+                                <div class="p-2 flex-shrink-1 bd-highlight">              
+                            </div>
+                        </div>
+                        </div>
+                        <br>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover" id="accountTable">
+                                    <thead class="text-danger">
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Account Type</th>
+                                    <th>Account Status</th>
+                                    </thead>
+                                    <tbody>
+                                        <?php 
+                                            $query = "SELECT * FROM users";
+                                            $result = mysqli_query($conn, $query);
+                                            $check_row = mysqli_num_rows($result);
+                                            while ($row = mysqli_fetch_array($result)) {
+                                        ?>
+                                        <tr>
+                                            <td><?php echo $row['name'] ?></td>
+                                            <td><?php echo $row['email'] ?></td>
+                                            <td><?php echo $row['user'] ?></td>
+                                            <td>
+                                                <?php 
+                                                    if ($row['account_stat'] == 'active'){
+                                                        echo '<h6 class="text-success">Active</h6>';
+                                                    }else{
+                                                        echo '<h6 class="text-danger">Disabled</h6>';
+                                                    }
+                                                ?>
+                                                
+                                            </td>
+                                            <?php } ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
             </div>
        
             <footer class="footer">
