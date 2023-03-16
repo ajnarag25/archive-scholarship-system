@@ -44,6 +44,12 @@
                         </a>
                     </li>
                     <li>
+                        <a href="archived_tes.php">
+                            <i class='bx bx-archive-in'></i>
+                            <p>Archived Records</p>
+                        </a>
+                    </li>
+                    <li>
                         <a href="account.php">
                             <i class='bx bxs-cog'></i>
                             <p>Account Settings</p>
@@ -203,9 +209,37 @@
                                             <td>
                                                 <!-- <button class="btn btn-primary" data-toggle="modal" data-target="#edit"><i class='bx bx-download' ></i></button> -->
                                                 <button class="btn btn-primary" data-toggle="modal" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit File" data-target="#edit<?php echo $row['id'] ?>"><i class='bx bx-edit' ></i></button>
-                                                <button class="btn btn-danger"  data-toggle="modal" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete File" data-target="#delete<?php echo $row['id'] ?>"><i class='bx bxs-trash' ></i></button>
+                                                <button class="btn btn-warning" data-toggle="modal" data-bs-toggle="tooltip" data-bs-placement="top" title="Download File" data-target="#download<?php echo $row['id'] ?>"><i class='bx bx-download' ></i></button>
+                                                <button class="btn btn-primary"  data-toggle="modal" data-bs-toggle="tooltip" data-bs-placement="top" title="Archive Record" data-target="#archive<?php echo $row['id'] ?>"> <i class='bx bx-archive-in'></i></button>
                                             </td>
                                         </tr>
+
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="download<?php echo $row['id'] ?>" tabindex="-1" role="dialog" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Download File</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body text-center">
+                                                    <h6>Are you sure you want download this file?</h6>
+                                                    <p>File to be downloaded: <?php echo $row['file'] ?></p>
+                                                </div>
+                                                    <div class="modal-footer">
+                                                        <form action="process.php" method="POST">
+                                                            <input type="hidden" name="id_tes_download" value="<?php echo $row['id'] ?>">
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                            <button type="submit" class="btn btn-primary" name="download_tes">Download</button>
+                                                        </form>
+                                                    </div>
+                                         
+                                                </div>
+                                            </div>
+                                        </div>
+
                                         <!-- Modal -->
                                         <div class="modal fade" id="edit<?php echo $row['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="edit{{f.id}}" aria-hidden="true">
                                             <div class="modal-dialog" role="document">
@@ -247,54 +281,36 @@
                                             </div>
                                         </div>
 
-                                    
 
-                                        <!-- Modal -->
-                                        <!-- <div class="modal fade" id="enable{{f.id}}" tabindex="-1" role="dialog" aria-labelledby="delete{f.id}}" aria-hidden="true">
-                                        <div class="modal-dialog" role="document">
-                                            <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">Enable Account Admin : {{f.first_name}} {{f.last_name}}</h5>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body text-center">
-                                                <form method="POST">
-                                                {% csrf_token %}
-                                                <h4>Are you sure to enable this user admin?</h4>
-                                            </div>
-                                                <div class="modal-footer">
-                                                <input type="hidden" name="id_enable_admin" value="{{f.id}}">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                <button type="submit" class="btn btn-success">Enable</button>
-                                                </div>
-                                            </form>
-                                            </div>
-                                        </div>
-                                        </div> -->
-
-                                        <!-- Modal -->
-                                        <div class="modal fade" id="delete<?php echo $row['id'] ?>" tabindex="-1" role="dialog" aria-hidden="true">
+                                        <!-- Modal Archive Record-->
+                                        <div class="modal fade" id="archive<?php echo $row['id'] ?>" tabindex="-1" role="dialog"  aria-hidden="true">
                                             <div class="modal-dialog" role="document">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h5 class="modal-title" id="exampleModalLabel">Delete Record</h5>
-                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <h5 class="modal-title">Archive TES Focal Person Records</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
-                                                        </button>
+                                                    </button>
                                                     </div>
-                                                    <div class="modal-body text-center">
-                                                        <h5>Are you sure you want delete the record?</b> </h5>
-                                                        <p class="text-center"><i class='bx bxs-message-alt-error bx-flashing' style="color:red"></i> This action is irreversible!</p>
-                                                    </div>
-                                                    <div class="modal-footer">
+                                                    <div class="modal-body">
                                                         <form action="process.php" method="POST">
-                                                            <input type="hidden" name="id_delete_tes" value="<?php echo $row['id'] ?>">
+                                                            <br>
+                                                            <h6 class="text-center">Archiving Record of: <?php echo $row['name'] ?></h6>
+                                                            <br>
+                                                            <p class="text-center"><i class='bx bxs-message-alt-error bx-flashing' style="color:red"></i>Are you sure to archive this record?</p>
+                                                            <br>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <input type="hidden" value="<?php echo $row['id'] ?>" name="tes_id">
+                                                            <input type="hidden" value="<?php echo $row['date_time'] ?>" name="tes_dt">
+                                                            <input type="hidden" value="<?php echo $row['file'] ?>" name="tes_file">
+                                                            <input type="hidden" value="<?php echo $row['semester'] ?>" name="tes_semester">
+                                                            <input type="hidden" value="<?php echo $row['academic_yr'] ?>" name="tes_academic">
+                                                            <input type="hidden" value="<?php echo $row['name'] ?>" name="tes_name">
                                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                            <button type="submit" class="btn btn-danger" name="delete_tes">Delete</button>
-                                                        </form>
-                                                    </div>
+                                                            <button type="submit" class="btn btn-primary" name="archive_records">Archive Record</button>
+                                                        </div>
+                                                    </form>
                                                 </div>
                                             </div>
                                         </div>

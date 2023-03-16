@@ -1,10 +1,11 @@
 <?php 
   include('../connection.php');
   session_start();
-  if (!isset($_SESSION['user_data_unifast'])) {
+  if (!isset($_SESSION['user_data_tdp'])) {
     header("Location: ../index.php");
     }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -12,7 +13,7 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <title>Unifast Focal Person - Archived Records</title>
+    <title>TDP Focal Person - Archived Records</title>
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css" rel="stylesheet">
@@ -31,7 +32,7 @@
                     <img src="../assets/logo.jpg" alt="...">
                 </a>
                 <a href="" class="simple-text logo-normal">
-                    UNIFAST Focal Person
+                    TDP Focal Person
                 </a>
             </div>
             <div class="sidebar-wrapper">
@@ -39,11 +40,11 @@
                     <li>
                         <a href="index.php">
                             <i class='bx bx-file' ></i>
-                            <p>UNIFAST Records</p>
+                            <p>TDP Focal Person Records</p>
                         </a>
                     </li>
                     <li class="active">
-                        <a href="archive_records.php">
+                        <a href="archived_tdp.php">
                             <i class='bx bx-archive-in'></i>
                             <p>Archive Records</p>
                         </a>
@@ -144,21 +145,26 @@
                                 <table class="table table-hover" id="accountTable">
                                     <thead class="text-danger">
                                     <th>Date & Time Archived</th>
-                                    <th>Filename</th>
                                     <th>Date Upload</th>
+                                    <th>File Name</th>
+                                    <th>Semester</th>
+                                    <th>A.Y Year</th>
+                                    <th>Name</th>
                                     <th>Action</th>
                                     </thead>
                                     <tbody>
                                         <?php 
-                                            $query = "SELECT * FROM archived_unifast";
+                                            $query = "SELECT * FROM archived_tdp";
                                             $result = mysqli_query($conn, $query);
-                                            $check_row = mysqli_num_rows($result);
                                             while ($row = mysqli_fetch_array($result)) {
                                         ?>
                                         <tr>
                                             <td><b><?php echo $row['date_time'] ?></b></td>
-                                            <td><?php echo $row['file'] ?></td>
                                             <td><?php echo $row['date_upload'] ?></td>
+                                            <td><?php echo $row['file'] ?></td>
+                                            <td><?php echo $row['semester'] ?></td>      
+                                            <td><?php echo $row['academic_yr'] ?></td>   
+                                            <td><?php echo $row['name'] ?></td>     
                                             <td>
                                                 <button class="btn btn-primary"  data-toggle="modal" data-bs-toggle="tooltip" data-bs-placement="top" title="Unarchive Account" data-target="#archive<?php echo $row['id'] ?>"><i class='bx bx-archive-out'></i></button>
                                             </td>
@@ -184,12 +190,12 @@
                                                                 <br>
                                                             </div>
                                                             <div class="modal-footer">
-                                                                <input type="hidden" value="<?php echo $row['id'] ?>" name="id_user">
-                                                                <input type="hidden" value="<?php echo $row['file'] ?>" name="users_name">
-                                                                <input type="hidden" value="<?php echo $row['email'] ?>" name="users_email">
-                                                                <input type="hidden" value="<?php echo $row['date_upload'] ?>" name="users_date">
-                                                                <input type="hidden" value="<?php echo $row['size'] ?>" name="users_size">
-                                                                <input type="hidden" value="<?php echo $row['downloads'] ?>" name="users_downloads">
+                                                                <input type="hidden" value="<?php echo $row['id'] ?>" name="tdp_id">
+                                                                <input type="hidden" value="<?php echo $row['date_upload'] ?>" name="tdp_dt">
+                                                                <input type="hidden" value="<?php echo $row['file'] ?>" name="tdp_file">
+                                                                <input type="hidden" value="<?php echo $row['semester'] ?>" name="tdp_semester">
+                                                                <input type="hidden" value="<?php echo $row['academic_yr'] ?>" name="tdp_academic">
+                                                                <input type="hidden" value="<?php echo $row['name'] ?>" name="tdp_name">
                                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                                                 <button type="submit" class="btn btn-primary" name="unarchive_record">Unarchive Record</button>
                                                             </div>
@@ -225,33 +231,20 @@
     </div>
 </body>
 
-    <script src="js/core/jquery.min.js"></script>
-    <script src="js/core/popper.min.js"></script>
-    <script src="js/core/bootstrap.min.js"></script>
-    <script src="js/plugins/perfect-scrollbar.jquery.min.js"></script>
-    <script src="js/plugins/chartjs.min.js"></script>
-    <script src="js/plugins/bootstrap-notify.js"></script>
-    <script src="js/dashboard.js?v=1.0.1"></script>
-    <script src="demo/demo.js"></script>
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.js"></script>
-    <script>
-        $('#accountTable').DataTable()
-    </script>
-    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-    <script>
-        AOS.init({
-            duration: 3000,
-            once: true,
-        });
-    </script>
-    <script>
-        function lettersOnly(input) {
-            var regex = /[^a-z ]/gi;
-            input.value = input.value.replace(regex, "");
-        }
-    </script>
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+ 
+<script src="js/core/jquery.min.js"></script>
+<script src="js/core/popper.min.js"></script>
+<script src="js/core/bootstrap.min.js"></script>
+<script src="js/plugins/perfect-scrollbar.jquery.min.js"></script>
+<script src="js/plugins/chartjs.min.js"></script>
+<script src="js/plugins/bootstrap-notify.js"></script>
+<script src="js/dashboard.js?v=1.0.1"></script>
+<script src="demo/demo.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.js"></script>
+<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="js/functions.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <?php 
         if (isset($_SESSION['status']) && $_SESSION['status'] !='')
         {
@@ -267,10 +260,10 @@
             <?php  unset($_SESSION['status']); ?>
         })
     </script>
+    
     <?php
     }else{
         unset($_SESSION['status']);
     }
     ?>
-
 </html>

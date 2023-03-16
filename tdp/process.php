@@ -173,5 +173,52 @@ if (isset($_POST['delete_tdp'])) {
     
 }
 
+// Archive Records
+if (isset($_POST['archive_records'])) {
+    $tdp_id = $_POST['tdp_id'];
+    $tdp_dt = $_POST['tdp_dt'];
+    $tdp_file = $_POST['tdp_file'];
+    $tdp_semester = $_POST['tdp_semester'];
+    $tdp_academic = $_POST['tdp_academic'];
+    $tdp_name = $_POST['tdp_name'];
+
+    if($tdp_id != null){
+        $conn->query("INSERT INTO archived_tdp (date_upload,file,semester,academic_yr,name) 
+        VALUES('$tdp_dt', '$tdp_file', '$tdp_semester', '$tdp_academic', '$tdp_name')") or die($conn->error);
+        $conn->query("DELETE FROM tdp_grantees WHERE id='$tdp_id';") or die($conn->error);
+        $_SESSION['status'] = 'Successfully Archived the Record';
+        $_SESSION['status_icon'] = 'success';
+        header('location:archived_tdp.php');
+    }else{
+        $_SESSION['status'] = 'An Error Occured!';
+        $_SESSION['status_icon'] = 'error';
+        header('location:index.php');
+    }
+    
+}
+
+// Unarchive Records
+if (isset($_POST['unarchive_record'])) {
+    $tdp_id = $_POST['tdp_id'];
+    $tdp_dt = $_POST['tdp_dt'];
+    $tdp_file = $_POST['tdp_file'];
+    $tdp_semester = $_POST['tdp_semester'];
+    $tdp_academic = $_POST['tdp_academic'];
+    $tdp_name = $_POST['tdp_name'];
+
+    if($tdp_id != null){
+        $conn->query("INSERT INTO tdp_grantees (date_time,	file, semester, academic_yr, name) 
+        VALUES('$tdp_dt', '$tdp_file', '$tdp_semester', '$tdp_academic', '$tdp_name')") or die($conn->error);
+        $conn->query("DELETE FROM archived_tdp WHERE id='$tdp_id';") or die($conn->error);
+        $_SESSION['status'] = 'Successfully Unarchived the Record';
+        $_SESSION['status_icon'] = 'success';
+        header('location:index.php');
+    }else{
+        $_SESSION['status'] = 'An Error Occured!';
+        $_SESSION['status_icon'] = 'error';
+        header('location:archived_tdp.php');
+    }
+    
+}
 
 ?>

@@ -42,6 +42,12 @@
                             <p>TDP Focal Person Records</p>
                         </a>
                     </li>
+                    <li>
+                        <a href="archived_tdp.php">
+                            <i class='bx bx-archive-in'></i>
+                            <p>Archive Records</p>
+                        </a>
+                    </li>
                     <li class="active"> 
                         <a href="account.php">
                             <i class='bx bxs-cog'></i>

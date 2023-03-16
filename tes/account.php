@@ -42,7 +42,13 @@
                             <p>TES Focal Person Records</p>
                         </a>
                     </li>
-                    <li class="active"> 
+                    <li>
+                        <a href="archived_tes.php">
+                            <i class='bx bx-archive-in'></i>
+                            <p>Archived Records</p>
+                        </a>
+                    </li>
+                    <li class="active">
                         <a href="account.php">
                             <i class='bx bxs-cog'></i>
                             <p>Account Settings</p>
