@@ -87,57 +87,57 @@ if (isset($_POST['edit_stat'])) {
     
 }
 
-// Archive Account
-if (isset($_POST['archive_user'])) {
-    $id_user = $_POST['id_user'];
-    $uname = $_POST['users_name'];
-    $uemail = $_POST['users_email'];
-    $upassword = $_POST['users_password'];
-    $uimage = $_POST['users_image'];
-    $uaccount = $_POST['users_account'];
-    $uotp = $_POST['users_otp'];
-    $ustat = $_POST['users_stat'];
+// // Archive Account
+// if (isset($_POST['archive_user'])) {
+//     $id_user = $_POST['id_user'];
+//     $uname = $_POST['users_name'];
+//     $uemail = $_POST['users_email'];
+//     $upassword = $_POST['users_password'];
+//     $uimage = $_POST['users_image'];
+//     $uaccount = $_POST['users_account'];
+//     $uotp = $_POST['users_otp'];
+//     $ustat = $_POST['users_stat'];
 
-    if($id_user != null){
-        $conn->query("INSERT INTO archived_users (name, email, password, image, user, otp, account_stat) 
-        VALUES('$uname', '$uemail', '$upassword', '$uimage', '$uaccount', '$uotp', '$ustat')") or die($conn->error);
-        $conn->query("DELETE FROM users WHERE id='$id_user';") or die($conn->error);
-        $_SESSION['status'] = 'Successfully Archived the Account';
-        $_SESSION['status_icon'] = 'success';
-        header('location:archive_account.php');
-    }else{
-        $_SESSION['status'] = 'An Error Occured!';
-        $_SESSION['status_icon'] = 'error';
-        header('location:users.php');
-    }
+//     if($id_user != null){
+//         $conn->query("INSERT INTO archived_users (name, email, password, image, user, otp, account_stat) 
+//         VALUES('$uname', '$uemail', '$upassword', '$uimage', '$uaccount', '$uotp', '$ustat')") or die($conn->error);
+//         $conn->query("DELETE FROM users WHERE id='$id_user';") or die($conn->error);
+//         $_SESSION['status'] = 'Successfully Archived the Account';
+//         $_SESSION['status_icon'] = 'success';
+//         header('location:archive_account.php');
+//     }else{
+//         $_SESSION['status'] = 'An Error Occured!';
+//         $_SESSION['status_icon'] = 'error';
+//         header('location:users.php');
+//     }
     
-}
+// }
 
-// Unarchive Account
-if (isset($_POST['unarchive_user'])) {
-    $id_user = $_POST['id_user'];
-    $uname = $_POST['users_name'];
-    $uemail = $_POST['users_email'];
-    $upassword = $_POST['users_password'];
-    $uimage = $_POST['users_image'];
-    $uaccount = $_POST['users_account'];    
-    $uotp = $_POST['users_otp'];
-    $ustat = $_POST['users_stat'];
+// // Unarchive Account
+// if (isset($_POST['unarchive_user'])) {
+//     $id_user = $_POST['id_user'];
+//     $uname = $_POST['users_name'];
+//     $uemail = $_POST['users_email'];
+//     $upassword = $_POST['users_password'];
+//     $uimage = $_POST['users_image'];
+//     $uaccount = $_POST['users_account'];    
+//     $uotp = $_POST['users_otp'];
+//     $ustat = $_POST['users_stat'];
 
-    if($id_user != null){
-        $conn->query("INSERT INTO users (name, email, password, image, user, otp, account_stat) 
-        VALUES('$uname', '$uemail', '$upassword', '$uimage', '$uaccount', '$uotp', '$ustat')") or die($conn->error);
-        $conn->query("DELETE FROM archived_users WHERE id='$id_user';") or die($conn->error);
-        $_SESSION['status'] = 'Successfully Unarchived the Account';
-        $_SESSION['status_icon'] = 'success';
-        header('location:users.php');
-    }else{
-        $_SESSION['status'] = 'An Error Occured!';
-        $_SESSION['status_icon'] = 'error';
-        header('location:users.php');
-    }
+//     if($id_user != null){
+//         $conn->query("INSERT INTO users (name, email, password, image, user, otp, account_stat) 
+//         VALUES('$uname', '$uemail', '$upassword', '$uimage', '$uaccount', '$uotp', '$ustat')") or die($conn->error);
+//         $conn->query("DELETE FROM archived_users WHERE id='$id_user';") or die($conn->error);
+//         $_SESSION['status'] = 'Successfully Unarchived the Account';
+//         $_SESSION['status_icon'] = 'success';
+//         header('location:users.php');
+//     }else{
+//         $_SESSION['status'] = 'An Error Occured!';
+//         $_SESSION['status_icon'] = 'error';
+//         header('location:users.php');
+//     }
     
-}
+// }
 
 
 // Edit Profile

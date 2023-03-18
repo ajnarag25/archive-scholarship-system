@@ -62,12 +62,12 @@
                             <p>Manage Account</p>
                         </a>
                     </li>
-                    <li>
+                    <!-- <li>
                         <a href="archive_account.php">
                             <i class='bx bx-archive-in'></i>
                             <p>Archived Accounts</p>
                         </a>
-                    </li>
+                    </li> -->
                     <li class="active">
                         <a href="account.php">
                             <i class='bx bxs-cog'></i>
