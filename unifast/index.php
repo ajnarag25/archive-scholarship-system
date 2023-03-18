@@ -135,7 +135,7 @@
                             </div>
                             <div class="card-body text-center">
                                 <div><i class='bx bx-file bx-lg text-secondary'></i></div>
-                                <button class="btn btn-success w-100" data-toggle="modal" data-bs-toggle="tooltip" data-bs-placement="top" title="Upload File" data-target="#uploadUnifast">Upload File <span><i class='bx bx-plus' ></i></span> </button>
+                                <button class="btn btn-secondary w-100" data-toggle="modal" data-bs-toggle="tooltip" data-bs-placement="top" title="Upload File" data-target="#uploadUnifast">Upload File <span><i class='bx bx-plus' ></i></span> </button>
                             </div>  
                         </div>
                     </div>
@@ -159,8 +159,8 @@
                                 </div>
                                 <div class="modal-footer">
                                     <input type="hidden" name="email" value="<?php echo $_SESSION['user_data_unifast']['email'] ?>">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-success" name="upload_unifast">Upload File</button>
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-secondary" name="upload_unifast">Upload File</button>
                                 </div>
                             </form>
                         </div>
@@ -183,6 +183,7 @@
                             <div class="table-responsive">
                                 <table class="table table-hover" id="accountTable">
                                     <thead class="text-danger">
+                                    <th>Date Time</th>
                                     <th>File Name</th>
                                     <th>Date Uploaded</th>
                                     <!-- <th>No. of Downloads</th> -->
@@ -197,6 +198,7 @@
                                         while ($row = mysqli_fetch_array($result)) {
                                     ?>
                                         <tr>
+                                        <td><?php echo $row['date_time'] ?></td>
                                         <td><?php echo $row['name'] ?></td>
                                         <td><?php echo $row['date_upload'] ?></td>  
                                         <!-- <td><?php echo $row['downloads'] ?></td>                              -->

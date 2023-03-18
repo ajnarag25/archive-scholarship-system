@@ -135,12 +135,12 @@
                             </div>
                             <div class="card-body text-center">
                                 <div><i class='bx bx-file bx-lg text-secondary'></i></div>
-                                <button class="btn btn-success w-100" data-toggle="modal" data-bs-toggle="tooltip" data-bs-placement="top" title="Upload File" data-target="#uploadTES">Upload File <span><i class='bx bx-plus' ></i></span> </button>
+                                <button class="btn btn-secondary w-100" data-toggle="modal" data-bs-toggle="tooltip" data-bs-placement="top" title="Upload File" data-target="#uploadTES">Upload File <span><i class='bx bx-plus' ></i></span> </button>
                             </div>  
                         </div>
                     </div>
                 </div>
-                <!-- Modal Create Account-->
+                <!-- Modal Upload-->
                 <div class="modal fade" id="uploadTES" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
@@ -158,8 +158,8 @@
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-success" name="upload_tes" data-bs-toggle="tooltip" data-bs-placement="top" title="Upload File">Upload File</button>
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-secondary" name="upload_tes" data-bs-toggle="tooltip" data-bs-placement="top" title="Upload File">Upload File</button>
                                 </div>
                             </form>
                         </div>
