@@ -92,46 +92,53 @@ if(isset($_POST["upload_tdp"])){
     date_default_timezone_set('Asia/Manila');
     $set_date_time = date("Y-m-d h:i:s");
     $set_date = date("Y-m-d");
-    $set_file = 'TDP Grantees'. '_'. $set_date;
+    $set_file = $_FILES['file']['name'].'_'.$set_date;
+    $destination = 'uploads/files/' . $set_file;
 
     if($_FILES["file"]["size"] > 0){
-        $file = fopen($filename, "r");
-        if($ext === 'csv'){
-            while (($emapData = fgetcsv($file, 10000, ",")) !== FALSE){
-                $d1 = $emapData[0];
-                $d2 = $emapData[1];
-                $d3 = $emapData[2];
-                
-                $query_code = "SELECT * FROM tdp_grantees WHERE name='$d3'";
-                $result2 = $conn->query($query_code);
-    
-                if ($result2->num_rows > 0) {
-                    $_SESSION['status'] = 'Data is already existing!';
-                    $_SESSION['status_icon'] = 'error';
-                    header('location: index.php');
-                } else {
-                    $sql1 = "INSERT into tdp_grantees (date_time, file, semester, academic_yr, name) 
-                    values('$set_date_time', '$set_file', '$d1', '$d2', '$d3')";
-                    $result1 = mysqli_query( $conn, $sql1 );
-                }
-            }
+        // Save the uploaded file to the destination folder
+        if(move_uploaded_file($filename, $destination)) {
+            $file = fopen($destination, "r");
+            if($ext === 'csv'){
+                while (($emapData = fgetcsv($file, 10000, ",")) !== FALSE){
+                    $d1 = $emapData[0];
+                    $d2 = $emapData[1];
+                    $d3 = $emapData[2];
 
-            fclose($file);
-            $_SESSION['status'] = 'CSV File successfully imported.';
-            $_SESSION['status_icon'] = 'success';
-            header('location: index.php');
-            //close of connection
-            mysqli_close($conn); 
-        }else{
-            $_SESSION['status'] = 'Please upload a csv file only!';
+                    $query_code = "SELECT * FROM tdp_grantees WHERE name='$d3'";
+                    $result2 = $conn->query($query_code);
+
+                    if ($result2->num_rows > 0) {
+                        $_SESSION['status'] = 'Data is already existing!';
+                        $_SESSION['status_icon'] = 'error';
+                        header('location: index.php');
+                    } else {
+                        $sql1 = "INSERT into tdp_grantees (date_time, file, semester, academic_yr, name) 
+                        values('$set_date_time', '$set_file', '$d1', '$d2', '$d3')";
+                        $result1 = mysqli_query( $conn, $sql1 );
+                    }
+                }
+
+                fclose($file);
+                $_SESSION['status'] = 'CSV File successfully imported.';
+                $_SESSION['status_icon'] = 'success';
+                header('location: index.php');
+                //close of connection
+                mysqli_close($conn); 
+            }else{
+                $_SESSION['status'] = 'Please upload a csv file only!';
+                $_SESSION['status_icon'] = 'error';
+                header('location: index.php');
+            }
+        } else {
+            $_SESSION['status'] = 'Failed to save the uploaded file!';
             $_SESSION['status_icon'] = 'error';
             header('location: index.php');
         }
-       
 
     }
- 
-}	 
+
+}  
 
 // Update Grantees Credentials
 if (isset($_POST['update_tdp'])) {
@@ -219,6 +226,39 @@ if (isset($_POST['unarchive_record'])) {
         header('location:archived_tdp.php');
     }
     
+}
+
+// Download file
+if (isset($_POST['download_tdp'])) {
+    $id = $_POST['id_tdp_download'];
+
+    // fetch file to download from database
+    $sql = "SELECT * FROM tdp_grantees WHERE id=$id";
+    $result = mysqli_query($conn, $sql);
+
+    $file = mysqli_fetch_assoc($result);
+    $filepath = 'uploads/files/' . $file['file'];
+
+    if (file_exists($filepath)) {
+        header('Content-Description: File Transfer');
+        header('Content-Type: application/octet-stream');
+        header('Content-Disposition: attachment; filename=' . basename($filepath));
+        header('Expires: 0');
+        header('Cache-Control: must-revalidate');
+        header('Pragma: public');
+        header('Content-Length: ' . filesize('uploads/files/' . $file['file']));
+        readfile('uploads' . $file['file']);
+
+        // $newCount = $file['downloads'] + 1;
+        // $updateQuery = "UPDATE tes_ SET downloads=$newCount WHERE id=$id";
+        // mysqli_query($conn, $updateQuery);
+        exit;
+    }else{
+        $_SESSION['status'] = 'Failed to download file.';
+        $_SESSION['status_icon'] = 'error';
+        header('location: index.php');
+    }
+
 }
 
 ?>
