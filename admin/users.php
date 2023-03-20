@@ -252,10 +252,10 @@
                                             <td><?php echo $row['user'] ?></td>
                                             <td>
                                                 <?php 
-                                                    if ($row['account_stat'] == 'active'){
+                                                    if ($row['account_stat'] == 'Active'){
                                                         echo '<h6 class="text-success">Active</h6>';
                                                     }else{
-                                                        echo '<h6 class="text-danger">Disabled</h6>';
+                                                        echo '<h6 class="text-danger">Deactive</h6>';
                                                     }
                                                 ?>
                                                 
@@ -263,7 +263,21 @@
                                     
                                             <td>
                                                 <button class="btn btn-primary" data-toggle="modal" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Account" data-target="#edit<?php echo $row['id'] ?>"><i class='bx bxs-edit' ></i></button>
-                                                <button class="btn btn-success" data-toggle="modal" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Account Status" data-target="#stat<?php echo $row['id'] ?>"><i class='bx bx-reset' ></i></button>
+                                                <!-- <button class="btn btn-success" data-toggle="modal" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Account Status" data-target="#stat_act<?php echo $row['id'] ?>"><i class='bx bx-reset' ></i></button> -->
+                                                <?php 
+                                                    if ($row['account_stat'] == 'Active'){
+                                                        ?>
+                                                        <button class="btn btn-danger" data-toggle="modal" data-bs-toggle="tooltip" data-bs-placement="top" title="Deactivate Account Status" data-target="#stat_deact<?php echo $row['id'] ?>"><i class='bx bx-reset' ></i></button>
+                                                        <?php
+                                                    }else{
+                                                        ?>
+
+                                                        <button class="btn btn-success" data-toggle="modal" data-bs-toggle="tooltip" data-bs-placement="top" title="Activate Account Status" data-target="#stat_act<?php echo $row['id'] ?>"><i class='bx bx-reset' ></i></button>
+                                                <?php
+                                                  
+                                                    }
+                                                ?>
+                                              
                                 
                                         </tr>
                                             <!-- Modal Edit Account-->
@@ -311,34 +325,51 @@
                                             </div>
                                             
                                             
-                                            <!-- Modal Edit Account Status-->
-                                            <div class="modal fade" id="stat<?php echo $row['id'] ?>" tabindex="-1" role="dialog"  aria-hidden="true">
+                                            <!-- Modal Deactivate Account Status-->
+                                            <div class="modal fade" id="stat_deact<?php echo $row['id'] ?>" tabindex="-1" role="dialog"  aria-hidden="true">
                                                 <div class="modal-dialog" role="document">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
-                                                        <h5 class="modal-title">Edit Account Status</h5>
+                                                        <h5 class="modal-title">Deactivate Account</h5>
                                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                             <span aria-hidden="true">&times;</span>
                                                         </button>
                                                         </div>
                                                         <div class="modal-body">
                                                             <form action="process.php" method="POST">
-                                                                <h6 class="text-center">Edit Account Status of : <?php echo $row['name'] ?></h6>
-                                                                <br>
-                                                                <div class="form-outline mb-4">
-                                                                    <label for="">Account Status</label>
-                                                                    <select name="stat" class="form-control" id="" required>
-                                                                        <option value="" selected disabled>--Select New Account Status--</option>
-                                                                        <option value="active">Activate</option>
-                                                                        <option value="disabled">Disable</option>   
-                                                                    </select>
-                                                                </div>
-                                                                <br>
+                                                                <h5 class="text-center"> <b>Deactivate the Account of : <?php echo $row['name'] ?></b></h5>
                                                             </div>
                                                             <div class="modal-footer">
                                                                 <input type="hidden" value="<?php echo $row['id'] ?>" name="id_stat">
                                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                <button type="submit" class="btn btn-danger" name="edit_stat">Save Changes</button>
+                                                                <button type="submit" class="btn btn-danger" name="edit_deact">Deactivate</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                             <!-- Modal Activate Account Status-->
+                                             <div class="modal fade" id="stat_act<?php echo $row['id'] ?>" tabindex="-1" role="dialog"  aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                        <h5 class="modal-title">Activate Account</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <form action="process.php" method="POST">
+                                                                <b>
+                                                                <h5 class="text-center"><b>Activate the Account of : <?php echo $row['name'] ?></b></h5>
+                                                                </b>
+                                                            
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <input type="hidden" value="<?php echo $row['id'] ?>" name="id_stat">
+                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                <button type="submit" class="btn btn-success" name="edit_act">Activate</button>
                                                             </div>
                                                         </form>
                                                     </div>

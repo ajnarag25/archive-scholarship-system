@@ -66,22 +66,36 @@ if (isset($_POST['edit'])) {
     
 }
 
-// Edit Account Status
-if (isset($_POST['edit_stat'])) {
+// Edit Account Status - Deactivate
+if (isset($_POST['edit_deact'])) {
     $id_stat = $_POST['id_stat'];
-    $status = $_POST['stat'];
 
-    $sql = "SELECT * FROM users WHERE account_stat='$status' AND id='$id_stat' ";
-    $result = mysqli_query($conn, $sql);
 
-    if (!$result->num_rows > 0) {
-        $conn->query("UPDATE users SET account_stat='$status' WHERE id='$id_stat'") or die($conn->error);
-        $_SESSION['status'] = 'Successfully Updated the Account Status';
+    if ($id_stat != null) {
+        $conn->query("UPDATE users SET account_stat='Deactivated' WHERE id='$id_stat'") or die($conn->error);
+        $_SESSION['status'] = 'Successfully Dectivated the Account';
         $_SESSION['status_icon'] = 'success';
         header('location:users.php');
     }else{
-        $_SESSION['status'] = 'No changes has been made';
-        $_SESSION['status_icon'] = 'warning';
+        $_SESSION['status'] = 'An Error Occured!';
+        $_SESSION['status_icon'] = 'error';
+        header('location:users.php');
+    }
+    
+}
+
+// Edit Account Status - Activate
+if (isset($_POST['edit_act'])) {
+    $id_stat = $_POST['id_stat'];
+
+    if ($id_stat != null) {
+        $conn->query("UPDATE users SET account_stat='Active' WHERE id='$id_stat'") or die($conn->error);
+        $_SESSION['status'] = 'Successfully Activated the Account';
+        $_SESSION['status_icon'] = 'success';
+        header('location:users.php');
+    }else{
+        $_SESSION['status'] = 'An Error Occured!';
+        $_SESSION['status_icon'] = 'error';
         header('location:users.php');
     }
     
