@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 18, 2023 at 03:32 AM
+-- Generation Time: Mar 20, 2023 at 02:17 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -139,6 +139,14 @@ CREATE TABLE `tes_grantees` (
   `name` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `tes_grantees`
+--
+
+INSERT INTO `tes_grantees` (`id`, `date_time`, `file`, `semester`, `academic_yr`, `name`) VALUES
+(4, '2023-03-18 11:50:20', 'new_sample.csv_2023-03-18', '1st semester', '2023-2024', 'Avor John Narag'),
+(5, '2023-03-18 11:50:20', 'new_sample.csv_2023-03-18', '1st semester', '2023-2024', 'Mark Narag');
+
 -- --------------------------------------------------------
 
 --
@@ -151,7 +159,8 @@ CREATE TABLE `unifast_files` (
   `name` varchar(255) NOT NULL,
   `date_upload` date NOT NULL,
   `size` int(11) NOT NULL,
-  `downloads` int(11) NOT NULL
+  `downloads` int(11) NOT NULL,
+  `date_time` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -170,6 +179,13 @@ CREATE TABLE `users` (
   `otp` int(11) NOT NULL,
   `account_stat` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `name`, `email`, `password`, `image`, `user`, `otp`, `account_stat`) VALUES
+(2, 'Elizabeth', 'bethescover@gmail.com', '$2y$10$SMQlFPVSR9XKL.OQQTr3c.dxKBPOX.OT9sL6WsWqd0.voGX49rw06', 'uploads/logo.jpg', 'TES Focal Person', 0, 'Deactivated');
 
 --
 -- Indexes for dumped tables
@@ -249,19 +265,19 @@ ALTER TABLE `archived_tdp`
 -- AUTO_INCREMENT for table `archived_tes`
 --
 ALTER TABLE `archived_tes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `archived_unifast`
 --
 ALTER TABLE `archived_unifast`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `archived_users`
 --
 ALTER TABLE `archived_users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `tdp_grantees`
@@ -273,7 +289,7 @@ ALTER TABLE `tdp_grantees`
 -- AUTO_INCREMENT for table `tes_grantees`
 --
 ALTER TABLE `tes_grantees`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `unifast_files`
@@ -285,7 +301,7 @@ ALTER TABLE `unifast_files`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
