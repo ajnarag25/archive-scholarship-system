@@ -263,7 +263,6 @@
                                     
                                             <td>
                                                 <button class="btn btn-primary" data-toggle="modal" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Account" data-target="#edit<?php echo $row['id'] ?>"><i class='bx bxs-edit' ></i></button>
-                                                <!-- <button class="btn btn-success" data-toggle="modal" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Account Status" data-target="#stat_act<?php echo $row['id'] ?>"><i class='bx bx-reset' ></i></button> -->
                                                 <?php 
                                                     if ($row['account_stat'] == 'Active'){
                                                         ?>
