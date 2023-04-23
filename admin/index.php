@@ -160,7 +160,7 @@
                                 <img src="assets/unifast.png" width="150" alt="">
                                 <hr>
                                 <?php 
-                                    $query = "SELECT * FROM users WHERE user='UNIFAST Person' AND account_stat='active'";
+                                    $query = "SELECT * FROM users WHERE user='UNIFAST Person' AND account_stat='Active'";
                                     $result = mysqli_query($conn, $query);
                                     $unifast = mysqli_num_rows($result);
                                 ?>
@@ -178,7 +178,7 @@
                                 <img src="assets/tes.png" width="150" alt="">
                                 <hr>
                                 <?php 
-                                    $query = "SELECT * FROM users WHERE user='TES Focal Person' AND account_stat='active'";
+                                    $query = "SELECT * FROM users WHERE user='TES Focal Person' AND account_stat='Active'";
                                     $result = mysqli_query($conn, $query);
                                     $tes = mysqli_num_rows($result);
                                 ?>
@@ -196,7 +196,7 @@
                                 <img src="assets/tdp.png" width="150" alt="">
                                 <hr>
                                 <?php 
-                                    $query = "SELECT * FROM users WHERE user='TDP Focal Person' AND account_stat='active'";
+                                    $query = "SELECT * FROM users WHERE user='TDP Focal Person' AND account_stat='Active'";
                                     $result = mysqli_query($conn, $query);
                                     $tdp = mysqli_num_rows($result);
                                 ?>

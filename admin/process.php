@@ -30,7 +30,7 @@ if (isset($_POST['create'])) {
     }else{
         if (!$result->num_rows > 0) {
             $conn->query("INSERT INTO users (name, email, password, image, user, otp, account_stat) 
-            VALUES('$name', '$email', '".password_hash($pass1, PASSWORD_DEFAULT)."', 'uploads/logo.jpg', '$user_type', 0, 'active')") or die($conn->error);
+            VALUES('$name', '$email', '".password_hash($pass1, PASSWORD_DEFAULT)."', 'uploads/logo.jpg', '$user_type', 0, 'Active')") or die($conn->error);
             $_SESSION['status'] = 'Successfully Created the Account';
             $_SESSION['status_icon'] = 'success';
             header('location:users.php');
