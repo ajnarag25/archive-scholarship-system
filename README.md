@@ -1,1 +1,1 @@
-# archive_scholarship_system
+# archive-scholarship-system
