@@ -154,13 +154,13 @@
                         <div class="card card-chart">
                             <div class="card-header text-center">
                                 <h5 class="card-category">Active Accounts</h5>
-                                <h4 class="card-title">UNIFAST Person</h4>
+                                <h4 class="card-title">UniFAST Focal Person</h4>
                             </div>
                             <div class="card-body text-center">
                                 <img src="assets/unifast.png" width="150" alt="">
                                 <hr>
                                 <?php 
-                                    $query = "SELECT * FROM users WHERE user='UNIFAST Person' AND account_stat='Active'";
+                                    $query = "SELECT * FROM users WHERE user='UNIFAST Focal Person' AND account_stat='Active'";
                                     $result = mysqli_query($conn, $query);
                                     $unifast = mysqli_num_rows($result);
                                 ?>
@@ -190,7 +190,7 @@
                         <div class="card card-chart">
                             <div class="card-header text-center">
                                 <h5 class="card-category">Active Accounts</h5>
-                                <h4 class="card-title">TDP Focal Personn</h4>
+                                <h4 class="card-title">TDP Focal Person</h4>
                             </div>
                             <div class="card-body text-center">
                                 <img src="assets/tdp.png" width="150" alt="">

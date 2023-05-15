@@ -159,7 +159,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-success" name="upload_tdp">Upload File</button>
+                                    <button type="submit" class="btn btn-secondary" name="upload_tdp">Upload File</button>
                                 </div>
                             </form>
                         </div>
@@ -184,12 +184,12 @@
                             <div class="table-responsive">
                                 <table class="table table-hover" id="accountTable">
                                     <thead class="text-danger">
-                                    <th>#</th>
+                                    
                                     <th>Date Upload</th>
                                     <th>File Name</th>
                                     <th>Semester</th>
                                     <th>A.Y Year</th>
-                                    <th>Name</th>
+                                    <th>Remarks</th>
                                     <th>Action</th>
                                     </thead>
                                     <tbody>
@@ -199,7 +199,7 @@
                                         while ($row = mysqli_fetch_array($result)) {
                                     ?>
                                         <tr>
-                                            <td><?php echo $row['id'] ?></td>
+                                            
                                             <td><?php echo $row['date_time'] ?></td>
                                             <td><?php echo $row['file'] ?></td>
                                             <td><?php echo $row['semester'] ?></td>      
@@ -264,8 +264,8 @@
                                                             <input type="text" class="form-control" name="academic_yr" value="<?php echo $row['academic_yr'] ?>"required/>
                                                         </div>
                                                         <div class="form-outline mb-4">
-                                                            <label for="">Name</label>
-                                                            <input type="text" class="form-control" name="name" value="<?php echo $row['name'] ?>"required/>
+                                                            <label for="">Remarks</label>
+                                                            <input type="text" class="form-control" name="name" value="<?php echo $row['remarks'] ?>"required/>
                                                         </div>
                                                         
                                                         <br>
@@ -304,7 +304,7 @@
                                                             <input type="hidden" value="<?php echo $row['file'] ?>" name="tdp_file">
                                                             <input type="hidden" value="<?php echo $row['semester'] ?>" name="tdp_semester">
                                                             <input type="hidden" value="<?php echo $row['academic_yr'] ?>" name="tdp_academic">
-                                                            <input type="hidden" value="<?php echo $row['name'] ?>" name="tdp_name">
+                                                            <input type="hidden" value="<?php echo $row['remarks'] ?>" name="tdp_name">
                                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                                             <button type="submit" class="btn btn-primary" name="archive_records">Archive Record</button>
                                                         </div>

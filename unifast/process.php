@@ -107,7 +107,7 @@ if (isset($_POST['upload_unifast'])) {
         header('location: index.php');
     }else{
         if (!in_array($extension, ['pdf', 'xlsx', 'csv'])) {
-            $_SESSION['status'] = 'You file extension must be .pdf, .xlsx or .csv';
+            $_SESSION['status'] = 'You file extension must be .pdf, .xlsx, or .csv';
             $_SESSION['status_icon'] = 'error';
             header('location: index.php');
         } elseif ($_FILES['unifast_file']['size'] > 100000000) { // file shouldn't be larger than 100Megabyte
@@ -218,7 +218,7 @@ if (isset($_POST['unarchive_record'])) {
         $conn->query("INSERT INTO unifast_files (user_email, name, date_upload, size, downloads) 
         VALUES('$email_record','$name_record','$date_record','$size_record','$downloads_record')") or die($conn->error);
         $conn->query("DELETE FROM archived_unifast WHERE id='$id_record';") or die($conn->error);
-        $_SESSION['status'] = 'Successfully Unarchived the File Record';
+        $_SESSION['status'] = 'Successfully Restore the File Record';
         $_SESSION['status_icon'] = 'success';
         header('location:index.php');
     }else{

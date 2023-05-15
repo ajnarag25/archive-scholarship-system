@@ -185,12 +185,11 @@
                             <div class="table-responsive">
                                 <table class="table table-hover" id="accountTable">
                                     <thead class="text-danger">
-                                    <th>#</th>
                                     <th>Date Upload</th>
                                     <th>File Name</th>
                                     <th>Semester</th>
                                     <th>A.Y Year</th>
-                                    <th>Name</th>
+                                    <th>Remarks</th>
                                     <th>Action</th>
                                     </thead>
                                     <tbody>
@@ -200,12 +199,12 @@
                                         while ($row = mysqli_fetch_array($result)) {
                                     ?>
                                         <tr>
-                                            <td><?php echo $row['id'] ?></td>
+                                        
                                             <td><?php echo $row['date_time'] ?></td>
                                             <td><?php echo $row['file'] ?></td>
                                             <td><?php echo $row['semester'] ?></td>      
                                             <td><?php echo $row['academic_yr'] ?></td>   
-                                            <td><?php echo $row['name'] ?></td>                          
+                                            <td><?php echo $row['remarks'] ?></td>                          
                                             <td>
                                                 <!-- <button class="btn btn-primary" data-toggle="modal" data-target="#edit"><i class='bx bx-download' ></i></button> -->
                                                 <button class="btn btn-primary" data-toggle="modal" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit File" data-target="#edit<?php echo $row['id'] ?>"><i class='bx bx-edit' ></i></button>
@@ -266,8 +265,8 @@
                                                             <input type="text" class="form-control" name="academic_yr" value="<?php echo $row['academic_yr'] ?>"required/>
                                                         </div>
                                                         <div class="form-outline mb-4">
-                                                            <label for="">Name</label>
-                                                            <input type="text" class="form-control" name="name" value="<?php echo $row['name'] ?>"required/>
+                                                            <label for="">Remarks</label>
+                                                            <input type="text" class="form-control" name="remarks" value="<?php echo $row['remarks'] ?>"required/>
                                                         </div>
                                                         <br>
                                                 </div>
@@ -295,7 +294,7 @@
                                                     <div class="modal-body">
                                                         <form action="process.php" method="POST">
                                                             <br>
-                                                            <h6 class="text-center">Archiving Record of: <?php echo $row['name'] ?></h6>
+                                                            <h6 class="text-center">Archiving Record of: <?php echo $row['remarks'] ?></h6>
                                                             <br>
                                                             <p class="text-center"><i class='bx bxs-message-alt-error bx-flashing' style="color:red"></i>Are you sure to archive this record?</p>
                                                             <br>
@@ -306,7 +305,7 @@
                                                             <input type="hidden" value="<?php echo $row['file'] ?>" name="tes_file">
                                                             <input type="hidden" value="<?php echo $row['semester'] ?>" name="tes_semester">
                                                             <input type="hidden" value="<?php echo $row['academic_yr'] ?>" name="tes_academic">
-                                                            <input type="hidden" value="<?php echo $row['name'] ?>" name="tes_name">
+                                                            <input type="hidden" value="<?php echo $row['remarks'] ?>" name="tes_remarks">
                                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                                             <button type="submit" class="btn btn-primary" name="archive_records">Archive Record</button>
                                                         </div>

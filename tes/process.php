@@ -113,7 +113,7 @@ if(isset($_POST["upload_tes"])){
                         $_SESSION['status_icon'] = 'error';
                         header('location: index.php');
                     } else {
-                        $sql1 = "INSERT into tes_grantees (date_time, file, semester, academic_yr, name) 
+                        $sql1 = "INSERT into tes_grantees (date_time, file, semester, academic_yr, remarks) 
                         values('$set_date_time', '$set_file', '$d1', '$d2', '$d3')";
                         $result1 = mysqli_query( $conn, $sql1 );
                     }
@@ -146,13 +146,13 @@ if (isset($_POST['update_tes'])) {
     $file = $_POST['file'];
     $semester = $_POST['semester'];
     $academic_yr = $_POST['academic_yr'];
-    $name = $_POST['name'];
+    $name = $_POST['remarks'];
 
-    $sql = "SELECT * FROM tes_grantees WHERE file='$file' AND semester='$semester' AND academic_yr='$academic_yr' AND name='$name' AND id='$id'";
+    $sql = "SELECT * FROM tes_grantees WHERE file='$file' AND semester='$semester' AND academic_yr='$academic_yr' AND remarks='$name' AND id='$id'";
     $result = mysqli_query($conn, $sql);
 
     if (!$result->num_rows > 0) {
-        $conn->query("UPDATE tes_grantees SET file='$file', semester='$semester', academic_yr='$academic_yr', name='$name' WHERE id='$id'") or die($conn->error);
+        $conn->query("UPDATE tes_grantees SET file='$file', semester='$semester', academic_yr='$academic_yr', remarks='$name' WHERE id='$id'") or die($conn->error);
         $_SESSION['status'] = 'Successfully Updated';
         $_SESSION['status_icon'] = 'success';
         header('location:index.php');
@@ -188,10 +188,10 @@ if (isset($_POST['archive_records'])) {
     $tes_file = $_POST['tes_file'];
     $tes_semester = $_POST['tes_semester'];
     $tes_academic = $_POST['tes_academic'];
-    $tes_name = $_POST['tes_name'];
+    $tes_name = $_POST['tes_remarks'];
 
     if($tes_id != null){
-        $conn->query("INSERT INTO archived_tes (date_upload,file,semester,academic_yr,name) 
+        $conn->query("INSERT INTO archived_tes (date_upload,file,semester,academic_yr,remarks) 
         VALUES('$tes_dt', '$tes_file', '$tes_semester', '$tes_academic', '$tes_name')") or die($conn->error);
         $conn->query("DELETE FROM tes_grantees WHERE id='$tes_id';") or die($conn->error);
         $_SESSION['status'] = 'Successfully Archived the Record';
@@ -205,7 +205,7 @@ if (isset($_POST['archive_records'])) {
     
 }
 
-// Unarchive Records
+// Restore Records
 if (isset($_POST['unarchive_record'])) {
     $tes_id = $_POST['tes_id'];
     $tes_dt = $_POST['tes_dt'];
@@ -215,10 +215,10 @@ if (isset($_POST['unarchive_record'])) {
     $tes_name = $_POST['tes_name'];
 
     if($tes_id != null){
-        $conn->query("INSERT INTO tes_grantees (date_time,	file, semester, academic_yr, name) 
+        $conn->query("INSERT INTO tes_grantees (date_time,	file, semester, academic_yr, remarks) 
         VALUES('$tes_dt', '$tes_file', '$tes_semester', '$tes_academic', '$tes_name')") or die($conn->error);
         $conn->query("DELETE FROM archived_tes WHERE id='$tes_id';") or die($conn->error);
-        $_SESSION['status'] = 'Successfully Unarchived the Record';
+        $_SESSION['status'] = 'Successfully Restore the Record';
         $_SESSION['status_icon'] = 'success';
         header('location:index.php');
     }else{

@@ -149,7 +149,7 @@
                                     <th>File Name</th>
                                     <th>Semester</th>
                                     <th>A.Y Year</th>
-                                    <th>Name</th>
+                                    <th>Remarks</th>
                                     <th>Action</th>
                                     </thead>
                                     <tbody>
@@ -164,7 +164,7 @@
                                             <td><?php echo $row['file'] ?></td>
                                             <td><?php echo $row['semester'] ?></td>      
                                             <td><?php echo $row['academic_yr'] ?></td>   
-                                            <td><?php echo $row['name'] ?></td>     
+                                            <td><?php echo $row['remarks'] ?></td>     
                                             <td>
                                                 <button class="btn btn-primary"  data-toggle="modal" data-bs-toggle="tooltip" data-bs-placement="top" title="Unarchive Account" data-target="#archive<?php echo $row['id'] ?>"><i class='bx bx-archive-out'></i></button>
                                             </td>
@@ -176,7 +176,7 @@
                                                 <div class="modal-dialog" role="document">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
-                                                        <h5 class="modal-title">Unarchive File Record</h5>
+                                                        <h5 class="modal-title">Restore File Record</h5>
                                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                             <span aria-hidden="true">&times;</span>
                                                         </button>
@@ -184,9 +184,9 @@
                                                         <div class="modal-body">
                                                             <form action="process.php" method="POST">
                                                                 <br>
-                                                                <h6 class="text-center">Unarchiving Record : <?php echo $row['file'] ?></h6>
+                                                                <h6 class="text-center">Restore Record : <?php echo $row['file'] ?></h6>
                                                                 <br>
-                                                                <p class="text-center"><i class='bx bxs-message-alt-error bx-flashing' style="color:green"></i>Are you sure to unarchive this file?</p>
+                                                                <p class="text-center"><i class='bx bxs-message-alt-error bx-flashing' style="color:green"></i>Are you sure to restore this file?</p>
                                                                 <br>
                                                             </div>
                                                             <div class="modal-footer">
@@ -195,9 +195,9 @@
                                                                 <input type="hidden" value="<?php echo $row['file'] ?>" name="tes_file">
                                                                 <input type="hidden" value="<?php echo $row['semester'] ?>" name="tes_semester">
                                                                 <input type="hidden" value="<?php echo $row['academic_yr'] ?>" name="tes_academic">
-                                                                <input type="hidden" value="<?php echo $row['name'] ?>" name="tes_name">
+                                                                <input type="hidden" value="<?php echo $row['remarks'] ?>" name="tes_name">
                                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                <button type="submit" class="btn btn-primary" name="unarchive_record">Unarchive Record</button>
+                                                                <button type="submit" class="btn btn-primary" name="unarchive_record">Restore Record</button>
                                                             </div>
                                                         </form>
                                                     </div>

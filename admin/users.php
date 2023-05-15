@@ -157,7 +157,7 @@
                                 <div><i class='bx bxs-user-plus bx-lg text-secondary'></i></div>
                                 <button class="btn btn-danger w-100" data-toggle="modal" data-bs-toggle="tooltip" data-bs-placement="top" title="Create Account" data-target="#createAccount">Create Account <span><i class='bx bx-plus' ></i></span> </button>
                                 <br><br>
-                                <p>Create an account for UNIFAST Person, TES Focal Person, and TDP Focal Person.</p>
+                                <p>Create an account for UniFAST Focal Person, TES Focal Person, and TDP Focal Person.</p>
                             </div>  
                         </div>
                     </div>
@@ -183,7 +183,7 @@
                                     <label for="">Account Type</label>
                                     <select name="user" class="form-control" id="" required>
                                         <option value="" selected disabled>Select Account Type</option>
-                                        <option value="UNIFAST Person">UNIFAST Person</option>
+                                        <option value="UNIFAST Focal Person">UniFAST Focal Person</option>
                                         <option value="TES Focal Person">TES Focal Person</option>
                                         <option value="TDP Focal Person">TDP Focal Person</option>
                                     </select>
@@ -297,7 +297,7 @@
                                                                 <label for="">Edit Account Type</label>
                                                                 <select name="user" class="form-control" id="" required>
                                                                     <option value="" selected>--Select New Account Type--</option>
-                                                                    <option value="UNIFAST Person">UNIFAST Person</option>
+                                                                    <option value="UniFAST Focal Person">UniFAST Focal Person</option>
                                                                     <option value="TES Focal Person">TES Focal Person</option>
                                                                     <option value="TDP Focal Person">TDP Focal Person</option>
                                                                 </select>

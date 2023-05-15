@@ -12,7 +12,7 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <title>UNIFAST Focal Person - Account Records</title>
+    <title>UniFAST Focal Person - Account Records</title>
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css" rel="stylesheet">
@@ -32,7 +32,7 @@
                     <img src="../assets/logo.jpg" alt="">
                 </a>
                 <a href="" class="simple-text logo-normal">
-                    UNIFAST Focal Person
+                    UniFAST Focal Person
                 </a>
             </div>
             <div class="sidebar-wrapper">
@@ -40,7 +40,7 @@
                     <li class="active">
                         <a href="index.php">
                             <i class='bx bx-file' ></i>
-                            <p>UNIFAST Records</p>
+                            <p>UniFAST Focal Person Records</p>
                         </a>
                     </li>
                     <li>
@@ -97,7 +97,7 @@
                                 <span class="navbar-toggler-bar bar3"></span>
                             </button>
                         </div>
-                        <a class="navbar-brand" href="">UNIFAST Records</a>
+                        <a class="navbar-brand" href="">UniFAST Focal Person Records</a>
                     </div>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-bar navbar-kebab"></span>

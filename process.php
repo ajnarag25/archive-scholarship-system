@@ -27,7 +27,7 @@ if (isset($_POST['login'])) {
             header('location:index.php');
         }
     }elseif ($getData_users != null){
-        if ($getData_users['user'] == 'UNIFAST Person' AND $getData_users['account_stat'] == 'Active'){
+        if ($getData_users['user'] == 'UNIFAST Focal Person' AND $getData_users['account_stat'] == 'Active'){
             if (password_verify($pass, $getData_users['password'])){
                 $_SESSION['user_data_unifast'] = $getData_users;
                 unset($_SESSION['status']);

@@ -31,7 +31,7 @@
                     <img src="../assets/logo.jpg" alt="...">
                 </a>
                 <a href="" class="simple-text logo-normal">
-                    UNIFAST Focal Person
+                    UniFAST Focal Person
                 </a>
             </div>
             <div class="sidebar-wrapper">
@@ -39,7 +39,7 @@
                     <li>
                         <a href="index.php">
                             <i class='bx bx-file' ></i>
-                            <p>UNIFAST Records</p>
+                            <p>UniFAST Person Records</p>
                         </a>
                     </li>
                     <li class="active">
@@ -170,7 +170,7 @@
                                                 <div class="modal-dialog" role="document">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
-                                                        <h5 class="modal-title">Unarchive File Record</h5>
+                                                        <h5 class="modal-title">Restore File Record</h5>
                                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                             <span aria-hidden="true">&times;</span>
                                                         </button>
@@ -178,9 +178,9 @@
                                                         <div class="modal-body">
                                                             <form action="process.php" method="POST">
                                                                 <br>
-                                                                <h6 class="text-center">Unarchiving Record : <?php echo $row['file'] ?></h6>
+                                                                <h6 class="text-center">Restoring Record : <?php echo $row['file'] ?></h6>
                                                                 <br>
-                                                                <p class="text-center"><i class='bx bxs-message-alt-error bx-flashing' style="color:green"></i>Are you sure to unarchive this file?</p>
+                                                                <p class="text-center"><i class='bx bxs-message-alt-error bx-flashing' style="color:green"></i>Are you sure to restore this file?</p>
                                                                 <br>
                                                             </div>
                                                             <div class="modal-footer">
@@ -191,7 +191,7 @@
                                                                 <input type="hidden" value="<?php echo $row['size'] ?>" name="users_size">
                                                                 <input type="hidden" value="<?php echo $row['downloads'] ?>" name="users_downloads">
                                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                <button type="submit" class="btn btn-primary" name="unarchive_record">Unarchive Record</button>
+                                                                <button type="submit" class="btn btn-primary" name="unarchive_record">Restore Record</button>
                                                             </div>
                                                         </form>
                                                     </div>
