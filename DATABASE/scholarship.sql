@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 23, 2023 at 03:35 AM
+-- Generation Time: May 15, 2023 at 12:58 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -55,7 +55,7 @@ CREATE TABLE `archived_tdp` (
   `file` text NOT NULL,
   `semester` varchar(255) NOT NULL,
   `academic_yr` varchar(255) NOT NULL,
-  `name` varchar(255) NOT NULL,
+  `remarks` varchar(255) NOT NULL,
   `date_time` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -71,7 +71,7 @@ CREATE TABLE `archived_tes` (
   `file` text NOT NULL,
   `semester` varchar(255) NOT NULL,
   `academic_yr` varchar(255) NOT NULL,
-  `name` varchar(255) NOT NULL,
+  `remarks` varchar(255) NOT NULL,
   `date_time` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -121,7 +121,7 @@ CREATE TABLE `tdp_grantees` (
   `file` varchar(255) NOT NULL,
   `semester` varchar(255) NOT NULL,
   `academic_yr` varchar(255) NOT NULL,
-  `name` varchar(255) NOT NULL
+  `remarks` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -136,7 +136,7 @@ CREATE TABLE `tes_grantees` (
   `file` varchar(255) NOT NULL,
   `semester` varchar(255) NOT NULL,
   `academic_yr` varchar(255) NOT NULL,
-  `name` varchar(255) NOT NULL
+  `remarks` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -250,13 +250,13 @@ ALTER TABLE `archived_tdp`
 -- AUTO_INCREMENT for table `archived_tes`
 --
 ALTER TABLE `archived_tes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `archived_unifast`
 --
 ALTER TABLE `archived_unifast`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `archived_users`
