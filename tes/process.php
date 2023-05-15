@@ -87,58 +87,85 @@ if (isset($_POST['change_pic_tes'])) {
 
 // Upload TES Grantees
 if(isset($_POST["upload_tes"])){
-    $filename=$_FILES["file"]["tmp_name"];
-    $ext = strtolower(end(explode('.', $_FILES['file']['name'])));
+    $filename = $_FILES["file"]["name"];
+    $ext = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
     date_default_timezone_set('Asia/Manila');
     $set_date_time = date("Y-m-d h:i:s");
     $set_date = date("Y-m-d");
-    $set_file = $_FILES['file']['name'].'_'.$set_date;
+    $set_file = $filename . '_' . $set_date;
     $destination = 'uploads/files/' . $set_file;
 
     if($_FILES["file"]["size"] > 0){
-        // Save the uploaded file to the destination folder
-        if(move_uploaded_file($filename, $destination)) {
-            $file = fopen($destination, "r");
-            if($ext === 'csv'){
-                while (($emapData = fgetcsv($file, 10000, ",")) !== FALSE){
-                    $d1 = $emapData[0];
-                    $d2 = $emapData[1];
-                    $d3 = $emapData[2];
+        // Check if file is a CSV or PDF
+        if($ext === 'csv' || $ext === 'pdf' || $ext === 'xlsx') {
+            // Save the uploaded file to the destination folder
+            if(move_uploaded_file($_FILES["file"]["tmp_name"], $destination)) {
+                $file = fopen($destination, "r");
+                if($ext === 'csv'){
+                    while (($emapData = fgetcsv($file, 10000, ",")) !== FALSE){
+                        $d1 = $emapData[0];
+                        $d2 = $emapData[1];
+                        $d3 = $emapData[2];
 
-                    $query_code = "SELECT * FROM tes_grantees WHERE name='$d3'";
-                    $result2 = $conn->query($query_code);
+                        $query_code = "SELECT * FROM tes_grantees WHERE file='$d3'";
+                        $result2 = $conn->query($query_code);
 
-                    if ($result2->num_rows > 0) {
+                        if ($result2->num_rows > 0) {
+                            $_SESSION['status'] = 'Data is already existing!';
+                            $_SESSION['status_icon'] = 'error';
+                            fclose($file);
+                            unlink($destination); // delete the uploaded file
+                            header('location: index.php');
+                            exit();
+                        } else {
+                            $sql1 = "INSERT into tes_grantees (date_time, file, semester, academic_yr, remarks) 
+                            values('$set_date_time', '$set_file', '$d1', '$d2', '$d3')";
+                            $result1 = mysqli_query( $conn, $sql1 );
+                        }
+                    }
+
+                    fclose($file);
+                    $_SESSION['status'] = 'CSV File successfully imported.';
+                    $_SESSION['status_icon'] = 'success';
+                    header('location: index.php');
+                    //close of connection
+                    mysqli_close($conn); 
+                } else { // PDF file
+                    $query_code = "SELECT * FROM tes_grantees WHERE file='$filename'";
+                    $result3 = $conn->query($query_code);
+
+                    if ($result3->num_rows > 0) {
                         $_SESSION['status'] = 'Data is already existing!';
                         $_SESSION['status_icon'] = 'error';
+                        fclose($file);
+                        unlink($destination); // delete the uploaded file
                         header('location: index.php');
+                        exit();
                     } else {
-                        $sql1 = "INSERT into tes_grantees (date_time, file, semester, academic_yr, remarks) 
-                        values('$set_date_time', '$set_file', '$d1', '$d2', '$d3')";
-                        $result1 = mysqli_query( $conn, $sql1 );
+                        $sql2 = "INSERT into tes_grantees (date_time, file, semester, academic_yr, remarks) 
+                        values('$set_date_time', '$set_file', 'N/a', 'N/a', 'N/a')";
+                        $result2 = mysqli_query( $conn, $sql2 );
+                        $_SESSION['status'] = 'PDF File successfully imported.';
+                        $_SESSION['status_icon'] = 'success';
+                        header('location: index.php');
                     }
                 }
-
-                fclose($file);
-                $_SESSION['status'] = 'CSV File successfully imported.';
-                $_SESSION['status_icon'] = 'success';
-                header('location: index.php');
-                //close of connection
-                mysqli_close($conn); 
-            }else{
-                $_SESSION['status'] = 'Please upload a csv file only!';
+            } else {
+                $_SESSION['status'] = 'Failed to save the uploaded file!';
                 $_SESSION['status_icon'] = 'error';
                 header('location: index.php');
             }
         } else {
-            $_SESSION['status'] = 'Failed to save the uploaded file!';
+            $_SESSION['status'] = 'Please upload a csv orpdf file only.';
             $_SESSION['status_icon'] = 'error';
             header('location: index.php');
+            }
+            } else {
+            $_SESSION['status'] = 'Please select a file to upload!';
+            $_SESSION['status_icon'] = 'error';
+            header('location: index.php');
+            }
         }
-
-    }
-
-} 
 
 // Update Grantees Credentials
 if (isset($_POST['update_tes'])) {

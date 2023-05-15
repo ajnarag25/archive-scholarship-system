@@ -20,6 +20,7 @@
     <link href="css/bootstrap.min.css" rel="stylesheet" />
     <link href="css/dashboard.css" rel="stylesheet" />
     <link href="demo/demo.css" rel="stylesheet" />
+    <link href="../assets/logo.jpg" rel="icon">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.css">
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 </head>

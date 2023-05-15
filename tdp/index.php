@@ -204,7 +204,7 @@
                                             <td><?php echo $row['file'] ?></td>
                                             <td><?php echo $row['semester'] ?></td>      
                                             <td><?php echo $row['academic_yr'] ?></td>   
-                                            <td><?php echo $row['name'] ?></td>                          
+                                            <td><?php echo $row['remarks'] ?></td>                          
                                             <td>
                                                 <!-- <button class="btn btn-primary" data-toggle="modal" data-target="#edit"><i class='bx bx-download' ></i></button> -->
                                                 <button class="btn btn-primary" data-toggle="modal" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit File" data-target="#edit<?php echo $row['id'] ?>"><i class='bx bx-edit' ></i></button>
@@ -293,7 +293,7 @@
                                                     <div class="modal-body">
                                                         <form action="process.php" method="POST">
                                                             <br>
-                                                            <h6 class="text-center">Archiving Record of: <?php echo $row['name'] ?></h6>
+                                                            <h6 class="text-center">Archiving Record of: <?php echo $row['remarks'] ?></h6>
                                                             <br>
                                                             <p class="text-center"><i class='bx bxs-message-alt-error bx-flashing' style="color:red"></i>Are you sure to archive this record?</p>
                                                             <br>
