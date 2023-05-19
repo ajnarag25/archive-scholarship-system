@@ -88,7 +88,7 @@ if (isset($_POST['forgot_pass'])) {
         header('location:index.php');
     }else{
         $conn->query("UPDATE users SET otp='$setOTP' WHERE email='$emails'") or die($conn->error);
-        // include 'SEND_EMAIL.php';
+        include 'SEND_EMAIL.php';
         header("Location: otp.php");
     }
 
